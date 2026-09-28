@@ -1245,4 +1245,13 @@ if (lexiqueSearchInput) {
             lexiqueSearchInput.focus();
         });
     }
-}
+};export const firebaseConfig = {
+    apiKey: "AIzaSyCWfYn3ipDWCn30jx68iz47YLnTmRdeZ_8",
+    authDomain: "afar-site.firebaseapp.com",
+    projectId: "afar-site",
+    storageBucket: "afar-site.firebasestorage.app",
+    messagingSenderId: "933404504042",
+    appId: "1:933404504042:web:c1667f6ff1a5049952cc93",
+    measurementId: "G-5L2ZWDJR8K"
+};
+

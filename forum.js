@@ -1,37 +1,56 @@
-// Import Firebase (module)
+// ------------------------------
+// IMPORTS FIREBASE (VERSION CDN)
+// ------------------------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    getDocs, 
+    deleteDoc, 
+    doc, 
+    updateDoc 
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
+// ------------------------------
+// CONFIG FIREBASE (corrigée)
+// ------------------------------
 const firebaseConfig = {
-    apiKey: "AIzaSyCWfYn3ipDWCn30jx68iz47YLnTmRdeZ_8",
-    authDomain: "afar-site.firebaseapp.com",
-    projectId: "afar-site",
-    storageBucket: "afar-site.firebasestorage.app",
-    messagingSenderId: "933404504042",
-    appId: "1:933404504042:web:c1667f6ff1a5049952cc93",
-    measurementId: "G-5L2ZWDJR8K"
+  apiKey: "AIzaSyCWfYn3ipDWCn30jx68iz47YLnTmRdeZ_8",
+  authDomain: "afar-site.firebaseapp.com",
+  projectId: "afar-site",
+  storageBucket: "afar-site.appspot.com",   // ✔ CORRIGÉ
+  messagingSenderId: "933404504042",
+  appId: "1:933404504042:web:c1667f6ff1a5049952cc93",
+  measurementId: "G-5L2ZWDJR8K"
 };
 
+// ------------------------------
+// INITIALISATION FIREBASE
+// ------------------------------
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const postsCollection = collection(db, "posts");
-const analytics = getAnalytics(app);
-// Charger les posts au démarrage
+
+// ------------------------------
+// CHARGER LES POSTS AU DÉMARRAGE
+// ------------------------------
 window.addEventListener("load", async function () {
     const snapshot = await getDocs(postsCollection);
     const posts = [];
+
     snapshot.forEach(docSnap => {
         posts.push({ id: docSnap.id, ...docSnap.data() });
     });
 
-    // Trier par date (plus récent en premier)
     posts.sort((a, b) => b.timestamp - a.timestamp);
 
     posts.forEach(post => renderPost(post));
 });
 
+// ------------------------------
+// AJOUTER UN POST
+// ------------------------------
 document.getElementById("submit-post").addEventListener("click", async function () {
 
     const title = document.getElementById("post-title").value;
@@ -68,13 +87,17 @@ document.getElementById("submit-post").addEventListener("click", async function 
     if (document.getElementById("post-contact")) document.getElementById("post-contact").value = "";
 });
 
+// ------------------------------
+// FORMAT DATE
+// ------------------------------
 function formatDate(timestamp) {
     const d = new Date(timestamp);
-    const dateString = d.toLocaleDateString("fr-FR");
-    const timeString = d.toLocaleTimeString("fr-FR");
-    return `${dateString} à ${timeString}`;
+    return `${d.toLocaleDateString("fr-FR")} à ${d.toLocaleTimeString("fr-FR")}`;
 }
 
+// ------------------------------
+// AFFICHER UN POST
+// ------------------------------
 function renderPost(postData) {
     const postContainer = document.getElementById("posts-container");
 
@@ -108,6 +131,7 @@ function renderPost(postData) {
     `;
 
     const repliesDiv = postDiv.querySelector(".replies");
+
     if (postData.replies && postData.replies.length > 0) {
         postData.replies.forEach(reply => {
             const replyDiv = document.createElement("div");
@@ -119,7 +143,9 @@ function renderPost(postData) {
 
     postContainer.prepend(postDiv);
 
-    // Réponse
+    // ------------------------------
+    // AJOUTER UNE RÉPONSE
+    // ------------------------------
     postDiv.querySelector(".reply-btn").addEventListener("click", async function () {
         const replyInput = postDiv.querySelector(".reply-input");
         const replyText = replyInput.value.trim();
@@ -137,7 +163,9 @@ function renderPost(postData) {
         await updateDoc(docRef, { replies: newReplies });
     });
 
-    // Suppression
+    // ------------------------------
+    // SUPPRIMER UN POST
+    // ------------------------------
     postDiv.querySelector(".delete-btn").addEventListener("click", async function () {
         if (!confirm("Supprimer ce post ?")) return;
         const docRef = doc(db, "posts", postData.id);
@@ -145,7 +173,9 @@ function renderPost(postData) {
         postDiv.remove();
     });
 
-    // Modification
+    // ------------------------------
+    // MODIFIER UN POST
+    // ------------------------------
     postDiv.querySelector(".edit-btn").addEventListener("click", async function () {
         const newContent = prompt("Modifier le contenu :", postData.content);
         if (newContent === null || newContent.trim() === "") return;
