@@ -1022,7 +1022,7 @@ body {
     width: min(260px, calc(100vw - 2rem));
     max-height: calc(100vh - 2rem);
     overflow: auto;
-    z-index: 1200;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -1033,6 +1033,7 @@ body {
     box-shadow: 0 18px 32px rgba(44, 44, 44, 0.12), 0 0 0 1px rgba(122, 31, 42, 0.03);
     padding: 0.85rem 0.95rem 0.8rem;
     backdrop-filter: blur(5px);
+    pointer-events: none;
 }
 
 .language-reminder::before {
@@ -1580,6 +1581,208 @@ body {
     .secondary-btn {
         width: 100%;
     }
+}
+
+.vocab-page {
+    padding-bottom: 5rem;
+}
+
+.vocab-summary {
+    margin: 2rem 0 1rem;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+}
+
+.summary-card {
+    background: linear-gradient(135deg, rgba(122, 31, 42, 0.08), rgba(255,255,255,0.9));
+    border: 1px solid rgba(122, 31, 42, 0.12);
+    border-radius: 20px;
+    padding: 1.3rem 1rem;
+    text-align: center;
+    box-shadow: var(--shadow-soft);
+}
+
+.summary-card strong {
+    display: block;
+    color: var(--bordeaux);
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin-bottom: 0.2rem;
+}
+
+.summary-card span {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.vocab-section {
+    margin-top: 2.5rem;
+    background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(249,243,236,0.96));
+    border: 1px solid rgba(122, 31, 42, 0.12);
+    border-radius: 28px;
+    padding: clamp(1.5rem, 3vw, 2.5rem);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    position: relative;
+}
+
+.vocab-section::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--bordeaux), var(--rose), var(--gold));
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.section-tag {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(122, 31, 42, 0.08);
+    border: 1px solid rgba(122, 31, 42, 0.12);
+    color: var(--bordeaux);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+.vocab-section h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 2.5vw, 2.7rem);
+    color: var(--bordeaux);
+}
+
+.vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+}
+
+.vocab-card {
+    background: rgba(255,255,255,0.95);
+    border: 1px solid rgba(122, 31, 42, 0.12);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 14px 28px rgba(44,44,44,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: pointer;
+}
+
+.vocab-card:hover,
+.vocab-card:focus-visible {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 30px rgba(44,44,44,0.1);
+    outline: none;
+}
+
+.vocab-card img {
+    display: block;
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    background: #f3e9df;
+}
+
+.vocab-body {
+    padding: 0.8rem 0.8rem 1rem;
+}
+
+.vocab-body h3 {
+    display: none;
+}
+
+.vocab-body p {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 14, 15, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    z-index: 2000;
+    padding: 2rem;
+}
+
+.lightbox.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox img {
+    max-width: min(90vw, 1000px);
+    max-height: 80vh;
+    object-fit: contain;
+    border-radius: 18px;
+    box-shadow: 0 30px 50px rgba(0,0,0,0.35);
+    background: rgba(255,255,255,0.08);
+}
+
+.lightbox-caption {
+    margin-top: 1rem;
+    color: var(--white);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 46px;
+    height: 46px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.page-back-link {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.page-back-link a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bordeaux);
+    text-decoration: none;
+    font-weight: 800;
+}
+
+.page-back-link a:hover {
+    text-decoration: underline;
 }
 
 .langue-section {

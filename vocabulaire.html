@@ -48,20 +48,27 @@
         </nav>
     </header>
 
-    <main class="page-content">
+    <main class="page-content vocab-page">
         <section class="langue-intro">
-            <div class="alphabet-badge"></div>
+            <div class="alphabet-badge">Vocabulaire</div>
             <h1>Vocabulaire afar</h1>
             <p class="langue-lead">
                 Le vocabulaire est la clé pour communiquer, décrire le monde et partager les habitudes de vie du peuple afar.
                 Une bonne base de mots facilite l’apprentissage de la langue et renforce la compréhension de la culture.
             </p>
-
         </section>
 
+        <section class="vocab-section">
+            <div class="vocab-grid" id="all-vocab-grid"></div>
+        </section>
 
         <p class="page-back-link"><a href="langue.html">← Retour à la page Langue</a></p>
     </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Fermer">×</button>
+        <img id="lightboxImage" src="" alt="Image agrandie">
+    </div>
 
     <footer class="footer">
         <div class="footer-links">
@@ -78,5 +85,198 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script>
+        const imageFiles = [
+            'action&verbe.jpeg',
+            'adjectifetqualité.jpeg',
+            'adverbes.jpeg',
+            'alphabet.jpeg',
+            'amourenversparents.jpeg',
+            'animaux.jpeg',
+            'animaux1.jpeg',
+            'animaux10.jpeg',
+            'animaux11.jpeg',
+            'animaux12.jpeg',
+            'animaux2.jpeg',
+            'animaux3.jpeg',
+            'animaux4.jpeg',
+            'animaux5.jpeg',
+            'animaux6.jpg',
+            'animaux7.jpeg',
+            'animaux8.jpg',
+            'animaux9.jpeg',
+            'carte.jpg',
+            'circonstance1.jpeg',
+            'circonstance2.jpeg',
+            'corps1.jpeg',
+            'corps2.jpg',
+            'corps3.jpg',
+            'corps4.jpg',
+            'corps5.jpeg',
+            'corps6.jpeg',
+            'corps7.jpeg',
+            'couleur.jpeg',
+            'cuisineobjet.jpeg',
+            'expression.jpeg',
+            'expressioncourante.jpeg',
+            'expressionmalade.jpeg',
+            'expressionutile.jpg',
+            'famille.jpeg',
+            'famille.jpg',
+            'fond.png',
+            'formedubois.jpg',
+            'gouvernement.jpeg',
+            'hutte.png',
+            'jourdelasemaine.jpg',
+            'lesnombres.jpeg',
+            'majournée.jpeg',
+            'motdepolitesse.jpeg',
+            'motinterogatif.jpeg',
+            'Motutilegénérale.jpeg',
+            'motutilegénérale2.jpeg',
+            'motutilegénérale3.jpeg',
+            'nature.jpeg',
+            'phrasepratique.jpeg',
+            'pluie.jpeg',
+            'pointcardianux.jpeg',
+            'ponctuation.jpeg',
+            'prepositiondelieu.jpeg',
+            'pronompersonnelsujet.jpg',
+            'pronompossesif2.jpeg',
+            'prononpersonelobjet.jpg',
+            'prononpossesif1.jpg',
+            'questionutile.jpeg',
+            'qui.jpg',
+            'regledanslaclasse.jpeg',
+            'relief.jpeg',
+            'situation.jpeg',
+            'temps.jpeg',
+            'verbe (devoir).jpeg',
+            'verbe&temps.jpeg',
+            'verbedaction.jpeg',
+            'verbedaction2.jpeg',
+            'verbed\'action.jpeg',
+            'verbegénerale3.jpeg',
+            'verbegénérale.jpeg',
+            'verbegénérale2.jpeg',
+            'verbegénérale3.jpeg',
+            'vocabulairegénérale.jpeg',
+            'émotion.jpeg'
+        ];
+
+        const excludedCarouselFiles = new Set([
+            'afar2.jpg',
+            'afar3.jpeg',
+            'afar4.jpg',
+            'afar5.jpg',
+            'afar6.jpg',
+            'afar8.jpg',
+            'afar9.jpeg',
+            'afar10.jpg',
+            'afar11.jpg',
+            'afar12.jpeg',
+            'afar13.jpg',
+            'afar14.jpg',
+            'afar15.jpeg',
+            'afar16.jpeg',
+            'afar17.jpg',
+            'afar18.jpeg',
+            'afar19.jpeg',
+            'afar20.jpeg',
+            'afar21.jpg',
+            'afar22.jpg',
+            'carte.jpg',
+            'fond.png',
+            'hutte.png',
+            'qui.jpg'
+            
+        ]);
+
+        const galleryFiles = imageFiles.filter((fileName) => !excludedCarouselFiles.has(fileName));
+
+        const prettyTitle = (fileName) => {
+            const withoutExt = fileName.replace(/\.[^.]+$/, '');
+            return withoutExt
+                .replace(/[_-]+/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim()
+                .replace(/\b\w/g, (char) => char.toUpperCase());
+        };
+
+        const gallery = document.getElementById('all-vocab-grid');
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+
+        function openLightbox(item) {
+            if (!lightbox || !lightboxImage) return;
+            lightboxImage.src = item.src;
+            lightboxImage.alt = item.title;
+            lightbox.classList.add('open');
+            lightbox.setAttribute('aria-hidden', 'false');
+        }
+
+        function closeLightbox() {
+            if (!lightbox) return;
+            lightbox.classList.remove('open');
+            lightbox.setAttribute('aria-hidden', 'true');
+        }
+
+        function buildCard(item) {
+            const article = document.createElement('article');
+            article.className = 'vocab-card';
+            article.tabIndex = 0;
+            article.setAttribute('role', 'button');
+            article.setAttribute('aria-label', 'Ouvrir l’image ' + item.title);
+            article.innerHTML = `
+                <img src="${item.src}" alt="${item.title}">
+                <div class="vocab-body">
+                    <h3>${item.title}</h3>
+                </div>
+            `;
+
+            const open = () => openLightbox(item);
+            article.addEventListener('click', open);
+            article.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    open();
+                }
+            });
+            return article;
+        }
+
+        function renderVocab() {
+            if (!gallery) return;
+            gallery.innerHTML = '';
+            galleryFiles.forEach((fileName) => {
+                gallery.appendChild(buildCard({
+                    src: `assets/img/${fileName}`,
+                    title: prettyTitle(fileName)
+                }));
+            });
+        }
+
+        if (lightboxClose) {
+            lightboxClose.addEventListener('click', closeLightbox);
+        }
+
+        if (lightbox) {
+            lightbox.addEventListener('click', (event) => {
+                if (event.target === lightbox) {
+                    closeLightbox();
+                }
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
+                closeLightbox();
+            }
+        });
+
+        renderVocab();
+    </script>
 </body>
 </html>
