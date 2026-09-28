@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum Afar</title>
+    <link rel="stylesheet" href="forum.css">
+</head>
+
+<body>
+
+    <header class="forum-header">
+        <h1>Forum Afar – Partage & Discussions</h1>
+        <p>Partagez vos idées, vos avis, vos documents ou posez vos questions.</p>
+    </header>
+
+    <section class="new-post">
+        <h2>Créer un nouveau post</h2>
+
+        <label>Nom (optionnel) :</label>
+        <input type="text" id="post-author" placeholder="Votre nom">
+
+        <label>Contact (optionnel) :</label>
+        <input type="text" id="post-contact" placeholder="Email ou téléphone">
+
+        <label>Catégorie :</label>
+        <select id="post-category">
+            <option value="Suggestions">Suggestions</option>
+            <option value="Améliorations">Améliorations</option>
+            <option value="Questions">Questions</option>
+            <option value="Culture">Culture</option>
+            <option value="Ressources">Ressources</option>
+        </select>
+
+        <input type="text" id="post-title" placeholder="Titre du post">
+
+        <textarea id="post-content" placeholder="Votre message..."></textarea>
+
+        <label>Ajouter un fichier (pour l’instant non stocké) :</label>
+        <input type="file" id="post-file">
+
+        <button id="submit-post">Publier</button>
+    </section>
+
+    <section class="posts-list">
+        <h2>Posts récents</h2>
+        <div id="posts-container"></div>
+    </section>
+
+    <script type="module" src="forum.js"></script>
+
+</body>
+</html>
