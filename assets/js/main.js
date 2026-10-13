@@ -30,30 +30,9 @@ const setupDropdown = (item, menu) => {
     });
 };
 
-setupDropdown(languageItem, languageMenu);
+setupDropdown(languageItem, cultureItem);
 setupDropdown(cultureItem, cultureMenu);
 
-const isHomePage = () => {
-    const path = window.location.pathname.split('/').pop() || '';
-    return path === '' || path === 'index.html';
-};
-
-if (!isHomePage()) {
-    const reminder = document.createElement('aside');
-    reminder.className = 'language-reminder';
-    reminder.setAttribute('aria-label', 'Rappel linguistique');
-    reminder.innerHTML = `
-        <div class="language-reminder__title">À RETENIR / RAAQIS</div>
-        <p><strong>À retenir :</strong> seules <strong>trois lettres afar</strong> diffèrent du français :</p>
-        <ul class="language-reminder__list">
-            <li><strong>q</strong> = <em>ع</em></li>
-            <li><strong>x</strong> = <em>د rétroflexe</em></li>
-            <li><strong>c</strong> = <em>ح guttural</em></li>
-        </ul>
-        <p>Le <strong>h</strong> afar se prononce comme dans <em>هذ</em>.</p>
-    `;
-    document.body.appendChild(reminder);
-}
 
 const verbes = [
     { afar: 'Cate', fr: 'aider' },
