@@ -3082,3 +3082,28 @@ body {
         bottom: 12px;
     }
 }
+
+.vocab-presentation {
+max-width: 900px;
+margin: 0 auto 35px;
+padding: 22px 26px;
+background: #f7f4ed;
+border-left: 4px solid #b58b4c;
+border-radius: 10px;
+color: #444;
+line-height: 1.8;
+font-size: 1rem;
+}
+
+.vocab-presentation p {
+margin: 0 0 12px;
+}
+
+.vocab-presentation p:last-child {
+margin-bottom: 0;
+}
+
+.vocab-presentation strong {
+color: #521818;
+}
+
