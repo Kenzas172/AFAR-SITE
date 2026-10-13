@@ -2449,4 +2449,188 @@ body {
         padding: 0.7rem 0.8rem;
         font-size: 0.95rem;
     }
+
+/* ==========================
+   PAGE PROVERBES PREMIUM
+========================== */
+
+.proverbs-container{
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+    margin-top:2rem;
+}
+
+.proverb-card{
+    position:relative;
+    overflow:hidden;
+
+    background:linear-gradient(
+        135deg,
+        rgba(255,255,255,.97),
+        rgba(247,241,232,.96)
+    );
+
+    border-radius:28px;
+    padding:2rem;
+
+    border:1px solid rgba(122,31,42,.12);
+
+    box-shadow:0 18px 34px rgba(0,0,0,.08);
+
+    transition:.4s ease;
+}
+
+.proverb-card:hover{
+    transform:translateY(-8px);
+    box-shadow:
+    0 35px 50px rgba(122,31,42,.15),
+    0 0 50px rgba(246,215,154,.15);
+}
+
+.proverb-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+
+    width:100%;
+    height:5px;
+
+    background:linear-gradient(
+        90deg,
+        var(--bordeaux),
+        var(--rose),
+        var(--gold)
+    );
+}
+
+.proverb-card::after{
+    content:"❝";
+    position:absolute;
+    right:25px;
+    top:20px;
+
+    font-size:6rem;
+    color:rgba(122,31,42,.08);
+
+    font-family:Georgia,serif;
+}
+
+.proverb-number{
+    width:60px;
+    height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        var(--bordeaux),
+        var(--bordeaux-deep)
+    );
+
+    color:white;
+
+    font-size:1.1rem;
+    font-weight:900;
+
+    margin-bottom:1.2rem;
+
+    box-shadow:
+    0 10px 20px rgba(122,31,42,.25);
+}
+
+.proverb-afar{
+    font-size:1.45rem;
+    line-height:2.2rem;
+
+    color:var(--bordeaux);
+
+    font-weight:900;
+
+    margin-bottom:.9rem;
+
+    font-style:italic;
+}
+
+.proverb-fr{
+    font-size:1.1rem;
+
+    line-height:1.9rem;
+
+    color:var(--text-dark);
+
+    margin-bottom:1rem;
+}
+
+.proverb-meaning{
+    background:
+    linear-gradient(
+        135deg,
+        rgba(246,215,154,.25),
+        rgba(255,255,255,.65)
+    );
+
+    border-left:4px solid var(--gold);
+
+    border-radius:16px;
+
+    padding:1rem 1.2rem;
+
+    line-height:1.8;
+
+    color:var(--text-dark);
+}
+
+.proverb-meaning strong{
+    display:block;
+    color:var(--bordeaux);
+    margin-bottom:.4rem;
+}
+
+.proverb-card{
+    opacity:0;
+    transform:translateY(50px);
+    animation:proverbReveal 0.8s ease forwards;
+}
+
+.proverb-card:nth-child(2){animation-delay:.1s;}
+.proverb-card:nth-child(3){animation-delay:.2s;}
+.proverb-card:nth-child(4){animation-delay:.3s;}
+.proverb-card:nth-child(5){animation-delay:.4s;}
+.proverb-card:nth-child(6){animation-delay:.5s;}
+.proverb-card:nth-child(7){animation-delay:.6s;}
+.proverb-card:nth-child(8){animation-delay:.7s;}
+
+@keyframes proverbReveal{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@media(max-width:768px){
+
+    .proverb-card{
+        padding:1.5rem;
+    }
+
+    .proverb-afar{
+        font-size:1.2rem;
+        line-height:1.9rem;
+    }
+
+    .proverb-fr{
+        font-size:1rem;
+    }
+
+    .proverb-number{
+        width:50px;
+        height:50px;
+    }
+}
 }
