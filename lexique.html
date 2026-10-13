@@ -60,13 +60,14 @@
 
         <section class="langue-section lexique-section">
             <div class="section-header-row">
-                <h2>Répertoire</h2>
+                <h2>Lexique</h2>
                 <span id="lexiqueSummary" class="verbe-summary">0 mot</span>
             </div>
 
             <div class="verbe-search-card">
                 <div class="verbe-input-wrap">
                     <label class="verbe-search-label" for="lexiqueSearch">Rechercher un mot</label>
+
                     <button id="clearLexiqueSearchBtn" class="clear-search-btn" type="button" aria-label="Effacer la recherche">Effacer</button>
                 </div>
                 <input id="lexiqueSearch" class="verbe-search-input" type="search" placeholder="Tapez un mot afar ou sa traduction..." aria-label="Rechercher dans le lexique" />
@@ -74,6 +75,71 @@
             </div>
         </section>
     </main>
+<script>
+
+    // Recherche sans distinction entre majuscules et minuscules,
+    // ni entre lettres accentuées et non accentuées.
+    function normaliser(texte) {
+        return texte
+            .toLocaleLowerCase("fr")
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .trim();
+    }
+
+    function afficherResultats() {
+        const terme = normaliser(search.value);
+        results.innerHTML = "";
+
+        const correspondances = lexique.filter(function (entree) {
+            return normaliser(entree[0]).includes(terme)
+                || normaliser(entree[1]).includes(terme);
+        });
+
+        summary.textContent = lexique.length + " mots";
+
+        if (terme === "") {
+            results.innerHTML =
+                '<li class="lexique-message">Tapez un mot afar ou français pour afficher les résultats.</li>';
+            return;
+        }
+
+        if (correspondances.length === 0) {
+            results.innerHTML =
+                '<li class="lexique-message">Aucun résultat trouvé. Essayez un autre mot.</li>';
+            return;
+        }
+
+        correspondances.forEach(function (entree) {
+            const li = document.createElement("li");
+            li.className = "lexique-result-item";
+
+            const mot = document.createElement("strong");
+            mot.className = "lexique-result-word";
+            mot.textContent = entree[0];
+
+            const traduction = document.createElement("span");
+            traduction.className = "lexique-result-translation";
+            traduction.textContent = entree[1] || "Traduction non renseignée";
+
+            li.appendChild(mot);
+            li.appendChild(traduction);
+            results.appendChild(li);
+        });
+    }
+
+    search.addEventListener("input", afficherResultats);
+
+    clearBtn.addEventListener("click", function () {
+        search.value = "";
+        afficherResultats();
+        search.focus();
+    });
+
+    afficherResultats();
+;
+</script>
+
 
     <footer class="footer">
         <div class="footer-links">

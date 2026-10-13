@@ -2825,3 +2825,166 @@ body {
         transform: none;
     }
 }
+
+/* =========================================
+   BARRE DE RECHERCHE — SINGULIER / PLURIEL
+   ========================================= */
+
+.pluriel-search {
+    width: 100%;
+    max-width: 760px;
+    margin: 32px auto 28px;
+    padding: 22px;
+    background: linear-gradient(135deg, #fffaf3 0%, #f7eee4 100%);
+    border: 1px solid rgba(122, 31, 42, 0.13);
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(75, 36, 30, 0.07);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.pluriel-search:hover {
+    box-shadow: 0 12px 30px rgba(75, 36, 30, 0.11);
+}
+
+/* Champ de recherche */
+
+.pluriel-search input[type="search"] {
+    display: block;
+    width: 100%;
+    min-height: 58px;
+    padding: 16px 20px 16px 52px;
+    box-sizing: border-box;
+
+    font-family: inherit;
+    font-size: 15px;
+    color: #382522;
+    letter-spacing: 0.2px;
+
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24' fill='none' stroke='%237a1f2a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-4-4'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 18px center;
+    background-size: 21px;
+
+    border: 1.5px solid #e5d4c8;
+    border-radius: 15px;
+    outline: none;
+
+    box-shadow: 0 3px 8px rgba(55, 31, 26, 0.03);
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background-color 0.25s ease;
+}
+
+/* Texte indicatif */
+
+.pluriel-search input[type="search"]::placeholder {
+    color: #9a8580;
+    opacity: 1;
+}
+
+/* Effet lorsque l'utilisateur clique */
+
+.pluriel-search input[type="search"]:focus {
+    border-color: #7a1f2a;
+    background-color: #fffdfb;
+    box-shadow: 0 0 0 4px rgba(122, 31, 42, 0.10);
+}
+
+/* Petit compteur de résultats */
+
+#pluriel-compteur {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    margin: 14px 0 0;
+    color: #7a1f2a;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-align: center;
+}
+
+/* Petit point décoratif devant le compteur */
+
+#pluriel-compteur::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    flex-shrink: 0;
+    background-color: #b78b58;
+    border-radius: 50%;
+}
+
+/* Adaptation aux téléphones */
+
+@media (max-width: 600px) {
+    .pluriel-search {
+        margin: 24px auto 22px;
+        padding: 15px;
+        border-radius: 18px;
+    }
+
+    .pluriel-search input[type="search"] {
+        min-height: 54px;
+        padding: 14px 14px 14px 45px;
+        font-size: 14px;
+        background-position: 14px center;
+        background-size: 19px;
+        border-radius: 12px;
+    }
+
+    #pluriel-compteur {
+        font-size: 12px;
+    }
+}
+
+/* Résultats du lexique */
+.verbe-results {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: grid;
+    gap: 10px;
+}
+
+.lexique-result-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 15px 18px;
+    background: #fffaf3;
+    border: 1px solid #eadbd0;
+    border-left: 4px solid #7a1f2a;
+    border-radius: 12px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lexique-result-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 14px rgba(75, 36, 30, 0.08);
+}
+
+.lexique-result-word {
+    color: #7a1f2a;
+    font-size: 16px;
+}
+
+.lexique-result-translation {
+    color: #55443f;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.lexique-message {
+    padding: 16px;
+    color: #806d65;
+    background: #fffaf3;
+    border-radius: 12px;
+    text-align: center;
+    line-height: 1.6;
+}
