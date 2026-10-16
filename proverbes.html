@@ -1,363 +1,684 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Proverbes | AFAR</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Proverbes | AFAR</title>
+<link href="assets/css/style.css" rel="stylesheet"/>
+
+<style>
+:root {
+  --prov-wine: #702b3b;
+  --prov-wine-dark: #4b1927;
+  --prov-cream: #f8f3ea;
+  --prov-paper: #fffdf9;
+  --prov-ink: #33272a;
+  --prov-muted: #786b6b;
+  --prov-line: #eadfd7;
+}
+
+body {
+  background: var(--prov-cream);
+}
+
+.page-content {
+  max-width: 1240px;
+  width: calc(100% - 36px);
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.langue-intro {
+  max-width: 850px;
+  margin: 20px auto 30px;
+  text-align: center;
+  padding: 34px 24px 28px;
+  position: relative;
+}
+
+.langue-intro:before {
+  content: "✦";
+  display: block;
+  color: var(--prov-wine);
+  font-size: 19px;
+  margin-bottom: 9px;
+  opacity: .8;
+}
+
+.langue-intro h1 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 4vw, 3.15rem);
+  line-height: 1.1;
+  letter-spacing: -.035em;
+  color: var(--prov-wine-dark);
+  margin: 0 0 13px;
+}
+
+.langue-lead {
+  max-width: 690px;
+  margin: 0 auto;
+  color: var(--prov-muted);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.proverb-count {
+  display: inline-flex;
+  margin: 18px auto 0;
+  padding: 7px 13px;
+  border: 1px solid #e4d3cc;
+  border-radius: 999px;
+  background: #fffaf5;
+  color: var(--prov-wine);
+  font-size: .78rem;
+  letter-spacing: .025em;
+}
+
+.langue-section {
+  margin: 0 auto;
+  max-width: 1240px;
+}
+
+.langue-section > h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.35rem;
+  color: var(--prov-wine-dark);
+  font-weight: 600;
+  margin: 0 0 18px;
+  padding-left: 2px;
+}
+
+.proverbs-container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+  align-items: stretch;
+}
+
+.proverb-card {
+  position: relative;
+  min-width: 0;
+  margin: 0 !important;
+  padding: 20px 18px 17px !important;
+  background: var(--prov-paper) !important;
+  border: 1px solid var(--prov-line) !important;
+  border-radius: 13px !important;
+  box-shadow: 0 3px 12px rgba(64,32,36,.035) !important;
+  overflow: hidden;
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: proverb-appear .48s ease forwards;
+}
+
+.proverb-card:before {
+  content: "“";
+  position: absolute;
+  top: 1px;
+  right: 12px;
+  font-family: Georgia, serif;
+  font-size: 54px;
+  line-height: 1;
+  color: rgba(112,43,59,.09);
+  pointer-events: none;
+}
+
+.proverb-card:hover {
+  transform: translateY(-3px);
+  border-color: #d7b8b9 !important;
+  box-shadow: 0 10px 24px rgba(64,32,36,.08) !important;
+}
+
+.proverb-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 29px;
+  height: 25px;
+  padding: 0 7px;
+  margin: 0 0 11px;
+  border-radius: 7px;
+  background: #f2e5e3;
+  color: var(--prov-wine);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.proverb-afar {
+  position: relative;
+  z-index: 1;
+  margin: 0 !important;
+  color: var(--prov-wine-dark) !important;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  line-height: 1.55 !important;
+  overflow-wrap: anywhere;
+}
+
+.proverb-fr {
+  margin: 11px 0 0 !important;
+  padding-top: 10px;
+  border-top: 1px solid #f0e7e1;
+  color: #625457 !important;
+  font-size: .86rem !important;
+  line-height: 1.6 !important;
+}
+
+.proverb-meaning {
+  margin: 9px 0 0 !important;
+  color: var(--prov-muted) !important;
+  font-size: .81rem !important;
+  line-height: 1.65 !important;
+}
+
+.proverb-meaning strong {
+  color: var(--prov-wine);
+  font-size: .72rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-right: 5px;
+}
+
+.proverb-source {
+  margin: 26px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--prov-line);
+  color: var(--prov-muted);
+  font-size: .75rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+@keyframes proverb-appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 950px) {
+  .proverbs-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-content {
+    width: calc(100% - 28px);
+  }
+}
+
+@media (max-width: 600px) {
+  .page-content {
+    width: calc(100% - 22px);
+    padding-top: 18px;
+  }
+
+  .langue-intro {
+    padding: 25px 7px 20px;
+    margin: 8px auto 22px;
+  }
+
+  .langue-lead {
+    font-size: .92rem;
+  }
+
+  .proverbs-container {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .proverb-card {
+    padding: 17px 16px 15px !important;
+  }
+
+  .proverb-afar {
+    font-size: .98rem !important;
+  }
+}
+</style>
 </head>
+
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="index.html" class="logo">AFAR AF</a>
-            <ul class="nav-links">
-                <li class="nav-item"><a href="index.html"><strong>Accueil</strong></a></li>
-                <li class="nav-item language">
-                    <a href="langue.html" class="nav-trigger"><strong>Langue</strong></a>
-                    <ul class="dropdown-menu" aria-label="Sections de la langue afar">
-                        <li><a href="alphabet.html">Alphabet</a></li>
-                        <li><a href="vocabulaire.html">Vocabulaire</a></li>
-                        <li><a href="grammaire.html">Grammaire</a></li>
-                        <li><a href="conjugaison.html">Conjugaison</a></li>
-                        <li><a href="proverbes.html">Proverbes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item culture">
-                    <a href="culture.html" class="nav-trigger"><strong>Culture</strong></a>
-                    <ul class="dropdown-menu culture-menu" aria-label="Sections de la culture afar">
-                        <li><a href="culture.html">Culture</a></li>
-                        <li><a href="culture.html#danses-traditionnelles">Danses traditionnelles</a></li>
-                        <li><a href="culture.html#chants-afar">Chants afar</a></li>
-                        <li><a href="culture.html#mariages-afar">Mariages afar</a></li>
-                        <li><a href="culture.html#tribus-afar">Tribus afar</a></li>
-                        <li><a href="culture.html#objets-traditionnels">Objets traditionnels</a></li>
-                        <li><a href="culture.html#habits-traditionnels">Habits traditionnels</a></li>
-                        <li><a href="culture.html#figures-emblematique">Figures emblématiques afar</a></li>
-                        <li><a href="culture.html#nourriture-afar">Nourriture afar</a></li>
-                        <li><a href="culture.html#mode-de-vie-nomade">Mode de vie nomade</a></li>
-                        <li><a href="culture.html#territoire-afar">Territoire afar</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a href="histoire.html"><strong>Histoire</strong></a></li>
-                <li class="nav-item"><a href="lexique.html"><strong>Lexique</strong></a></li>
-                <li class="nav-item"><a href="traducteur.html"><strong>Traducteur</strong></a></li>
-                <li class="nav-item"><a href="these.html"><strong>Recherche</strong></a></li>
-                <li class="nav-item"><a href="apropos.html"><strong>À propos</strong></a></li>
-            </ul>
-            <button class="burger" aria-label="Menu mobile">☰</button>
-        </nav>
-    </header>
+<header>
+<nav class="navbar">
+<a class="logo" href="index.html">AFAR AF</a>
+<ul class="nav-links">
+<li class="nav-item"><a href="index.html"><strong>Accueil</strong></a></li>
+<li class="nav-item language">
+<a class="nav-trigger" href="langue.html"><strong>Langue</strong></a>
+<ul aria-label="Sections de la langue afar" class="dropdown-menu">
+<li><a href="alphabet.html">Alphabet</a></li>
+<li><a href="vocabulaire.html">Vocabulaire</a></li>
+<li><a href="grammaire.html">Grammaire</a></li>
+<li><a href="conjugaison.html">Conjugaison</a></li>
+<li><a href="proverbes.html">Proverbes</a></li>
+</ul>
+</li>
+<li class="nav-item culture">
+<a class="nav-trigger" href="culture.html"><strong>Culture</strong></a>
+<ul aria-label="Sections de la culture afar" class="dropdown-menu culture-menu">
+<li><a href="culture.html">Culture</a></li>
+<li><a href="culture.html#danses-traditionnelles">Danses traditionnelles</a></li>
+<li><a href="culture.html#chants-afar">Chants afar</a></li>
+<li><a href="culture.html#mariages-afar">Mariages afar</a></li>
+<li><a href="culture.html#tribus-afar">Tribus afar</a></li>
+<li><a href="culture.html#objets-traditionnels">Objets traditionnels</a></li>
+<li><a href="culture.html#habits-traditionnels">Habits traditionnels</a></li>
+<li><a href="culture.html#figures-emblematique">Figures emblématiques afar</a></li>
+<li><a href="culture.html#nourriture-afar">Nourriture afar</a></li>
+<li><a href="culture.html#mode-de-vie-nomade">Mode de vie nomade</a></li>
+<li><a href="culture.html#territoire-afar">Territoire afar</a></li>
+</ul>
+</li>
+<li class="nav-item"><a href="histoire.html"><strong>Histoire</strong></a></li>
+<li class="nav-item"><a href="lexique.html"><strong>Lexique</strong></a></li>
+<li class="nav-item"><a href="traducteur.html"><strong>Traducteur</strong></a></li>
+<li class="nav-item"><a href="these.html"><strong>Recherche</strong></a></li>
+<li class="nav-item"><a href="apropos.html"><strong>À propos</strong></a></li>
+</ul>
+<button aria-label="Menu mobile" class="burger">☰</button>
+</nav>
+</header>
 
-    <main class="page-content">
-        <section class="langue-intro">
-            <div class="alphabet-badge"></div>
-            <h1>Proverbes afar</h1>
-            <p class="langue-lead">
-                Les proverbes afar sont des trésors de sagesse transmis oralement. Ils expriment des valeurs de patience, de respect, de travail et de connaissance.
-            </p>
-        </section>
-<section id="expressions" class="langue-section">
-    <h2>Proverbes - Missila </h2>
-
-    <div class="proverbs-container">
-
-        <article class="proverb-card">
-            <div class="proverb-number">01</div>
-
-            <h3 class="proverb-afar">
-                Ablekal ma yaxxigan, atce kal maxuqan.
-            </h3>
-
-            <p class="proverb-fr">
-                On ne peut connaître sans voir ni avaler sans mâcher.
-            </p>
-
-            <div class="proverb-meaning">
-                <strong>Sens</strong>
-                Ce proverbe met en garde contre la facilité. Il rappelle qu'il ne faut pas se laisser guider par les apparences et qu'une véritable compréhension demande de l'expérience.
-            </div>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">02</div>
-
-            <h3 class="proverb-afar">
-                Abaluk rubeenim able kalah gunusan.
-            </h3>
-
-            <p class="proverb-fr">
-                Négligence aujourd'hui, regret demain.
-            </p>
-
-            <div class="proverb-meaning">
-                <strong>Sens</strong>
-                En remettant à plus tard une tâche importante, on risque de manquer une opportunité ou de subir les conséquences de son inattention.
-            </div>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">03</div>
-
-            <h3 class="proverb-afar">
-                Abte gaba baytaamah, gaba abtem ma bayta.
-            </h3>
-
-            <p class="proverb-fr">
-                Même si l'auteur disparaît, les fruits de son travail demeurent.
-            </p>
-
-            <div class="proverb-meaning">
-                <strong>Sens</strong>
-                Les actes et les réalisations survivent à leur créateur. Les faits ont souvent plus de valeur que les paroles.
-            </div>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">04</div>
-
-            <h3 class="proverb-afar">
-                Akat eleelem yareeh, gaba eleltem tacee.
-            </h3>
-
-            <p class="proverb-fr">
-                Une corde sert selon sa longueur alors qu'une main ne peut donner que son contenu.
-            </p>
-
-            <div class="proverb-meaning">
-                <strong>Sens</strong>
-                Toute chose possède ses limites. Il est important de connaître ses moyens et d'agir selon ses capacités.
-            </div>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">05</div>
-
-            <h3 class="proverb-afar">
-                Akeera faxak magexaanaay, fanak mayaduuran.
-            </h3>
-
-            <p class="proverb-fr">
-                On ne va pas dans l’au-delà de son plein gré et on n’en revient pas en cours de route.
-            </p>
-
-            <div class="proverb-meaning">
-                <strong> Sens</strong>
-                La vie est un voyage inévitable vers l'inconnu. Il est essentiel de vivre pleinement le moment présent.
-            </div>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">06</div>
-
-            <h3 class="proverb-afar">
-                Yabti agra, caxxi agrak koo laftah.
-            </h3>
-
-            <p class="proverb-fr">
-                Être battu avec les mots est pire qu’être battu avec un bâton.
-            </p>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">07</div>
-
-            <h3 class="proverb-afar">
-                Bissa digirih lem, hantuutal raba takke.
-            </h3>
-
-            <p class="proverb-fr">
-                Ce qui est un amusement pour la chatte provoque la mort du rat.
-            </p>
-        </article>
-
-        <article class="proverb-card">
-            <div class="proverb-number">08</div>
-
-            <h3 class="proverb-afar">
-                Qaxah gacak gacaanaah, kasah aysuk yayseeni.
-            </h3>
-
-            <p class="proverb-fr">
-                La beauté se perd petit à petit et la sagesse se gagne progressivement.
-            </p>
-        </article>
-
-        <!-- Proverbe 09 -->
-        <article class="proverb-card">
-            <div class="proverb-number">09</div>
-            <h3 class="proverb-afar">
-                alla qidak yen mari eleelah ma yanay, eleela mari qidah ma yan
-            </h3>
-            <p class="proverb-fr">
-                Ceux qui pouvaient tuer le fauve n'arrivent pas à l'atteindre et ceux qui arrivent à l'atteindre n'osent pas le tuer.
-            </p>
-        </article>
-
-        <!-- Proverbe 10 -->
-        <article class="proverb-card">
-            <div class="proverb-number">10</div>
-            <h3 class="proverb-afar">
-                Ummat ummat itteemit orobtaah, ali garboh orba.
-            </h3>
-            <p class="proverb-fr">
-                Les gens finissent par s'entendre et l'animal finit par regagner la forêt.
-            </p>
-        </article>
-
-        <!-- Proverbe 11 -->
-        <article class="proverb-card">
-            <div class="proverb-number">11</div>
-            <h3 class="proverb-afar">
-                Faxaanam baxaay, faxe waanam kol bahtam baxa.
-            </h3>
-            <p class="proverb-fr">
-                On désire un enfant et c'est l'enfant qui cause ce que l'on ne veut pas.
-            </p>
-        </article>
-
-        <!-- Proverbe 12 -->
-        <article class="proverb-card">
-            <div class="proverb-number">12</div>
-            <h3 class="proverb-afar">
-                Baxi baaxok ukseh yan burta inat caba.
-            </h3>
-            <p class="proverb-fr">
-                L'enfant ramasse de la boue du sol avec ses pieds et salit sa mère avec.
-            </p>
-        </article>
-
-        <!-- Proverbe 13 -->
-        <article class="proverb-card">
-            <div class="proverb-number">13</div>
-            <h3 class="proverb-afar">
-                Kutaay yakkalem leey, wayxexxooy tasmitem le.
-            </h3>
-            <p class="proverb-fr">
-                Le chien qui pense à quelque chose et la gazelle est sûre de quelque chose.
-            </p>
-        </article>
-
-        <!-- Proverbe 14 -->
-        <article class="proverb-card">
-            <div class="proverb-number">14</div>
-            <h3 class="proverb-afar">
-                Inti tuble num mawaagissaay, elle tuble’kke waagissa.
-            </h3>
-            <p class="proverb-fr">
-                L'œil n'oublie pas une personne vue, mais oublie le lieu où il l'a vue.
-            </p>
-        </article>
-
-        <!-- Proverbe 15 -->
-        <article class="proverb-card">
-            <div class="proverb-number">15</div>
-            <h3 class="proverb-afar">
-                Yabti adda ardat matabaana, daqar adda ardat taban.
-            </h3>
-            <p class="proverb-fr">
-                On ne traverse pas une discussion avec précipitation, on traverse un lit d'oued en courant.
-            </p>
-        </article>
-
-        <!-- Proverbe 16 -->
-        <article class="proverb-card">
-            <div class="proverb-number">16</div>
-            <h3 class="proverb-afar">
-                Misili misila ceelam meqeeh, baxi abba ceelam meqe.
-            </h3>
-            <p class="proverb-fr">
-                Que le proverbe ressemble au proverbe, que le fils ressemble au père.
-            </p>
-        </article>
-
-        <!-- Proverbe 17 -->
-        <article class="proverb-card">
-            <div class="proverb-number">17</div>
-            <h3 class="proverb-afar">
-                Abit abit boolok koo qidaah, marin kas ayrol koo caba.
-            </h3>
-            <p class="proverb-fr">
-                L'excès provoque la chute, le conseil des autres te laisse sous le soleil.
-            </p>
-        </article>
-
-        <!-- Proverbe 18 -->
-        <article class="proverb-card">
-            <div class="proverb-number">18</div>
-            <h3 class="proverb-afar">
-                Barat caben baaxo kee, qunxih aben xalay meqe’kkel koo cabta.
-            </h3>
-            <p class="proverb-fr">
-                Le pays traversé de nuit et le mariage consommé très jeune te placent au bon endroit.
-            </p>
-        </article>
-
-        <!-- Proverbe 19 -->
-        <article class="proverb-card">
-            <div class="proverb-number">19</div>
-            <h3 class="proverb-afar">
-                Misila yaabat koo qidoonuh kol baahe kee, koo edde xagoonuh kol baahe yakken.
-            </h3>
-            <p class="proverb-fr">
-                On utilise le proverbe pour te rappeler une évidence ou pour se critiquer.
-            </p>
-        </article>
-
-        <!-- Proverbe 20 -->
-        <article class="proverb-card">
-            <div class="proverb-number">20</div>
-            <h3 class="proverb-afar">
-                Gaali qarit weemih qanaabo yakme.
-            </h3>
-            <p class="proverb-fr">
-                Le dromadaire surchargé s'attaque aux bâts.
-            </p>
-        </article>
-
-        <!-- Proverbe 21 -->
-        <article class="proverb-card">
-            <div class="proverb-number">21</div>
-            <h3 class="proverb-afar">
-                Anennol luk rabi yaniih, adrennol luk baaca tani.
-            </h3>
-            <p class="proverb-fr">
-                La mort tient compagnie à l'espérance de vie et la faillite tient compagnie à l'appât du gain.
-            </p>
-        </article>
-
-        <!-- Proverbe 22 -->
-        <article class="proverb-card">
-            <div class="proverb-number">22</div>
-            <h3 class="proverb-afar">
-                Akeera yalla aaxaguk gexxam meqeeh, mandar maalu luk gexxam meqe.
-            </h3>
-            <p class="proverb-fr">
-                Il est bénéfique d'aller dans l'au-delà en connaissant Dieu et d'aller en ville avec de l'argent.
-            </p>
-        </article>
-
-        <!-- Proverbe 23 -->
-        <article class="proverb-card">
-            <div class="proverb-number">23</div>
-            <h3 class="proverb-afar">
-                Atu qunxa caxxat toogore num, kaxxa caxxat koo yaagure.
-            </h3>
-            <p class="proverb-fr">
-                La personne que tu agresses avec un petit bâton t'agresse avec un gourdin.
-            </p>
-        </article>
-
-        <!-- Proverbe 24 -->
-        <article class="proverb-card">
-            <div class="proverb-number">24</div>
-            <h3 class="proverb-afar">
-                Koo able kal umaane kol mahaanaay, xiine kal masoonitan.
-            </h3>
-            <p class="proverb-fr">
-                On ne peut t'accuser de mal sans t'avoir vu, on ne peut rêver sans dormir.
-            </p>
-        </article>
-    </div>
-
-    <script src="assets/js/main.js"></script>
+<main class="page-content">
+<section class="langue-intro">
+<div class="alphabet-badge"></div>
+<h1>Proverbes </h1>
+<p class="langue-lead">
+Les proverbes afar sont des trésors de sagesse transmis oralement. Ils expriment des valeurs de patience, de respect, de travail et de connaissance.
+</p>
+<p class="proverb-count">Cette page rassemble 252 proverbes, dont les proverbes de la liste fournie.</p>
 </section>
+
+<section class="langue-section" id="expressions">
+<h2>Proverbes — Missila</h2>
+<div class="proverbs-container">
+
+<article class="proverb-card">
+<div class="proverb-number">01</div>
+<h3 class="proverb-afar">Ablekal ma yaxxigan, atce kal maxuqan.</h3>
+<p class="proverb-fr">On ne peut connaître sans voir ni avaler sans mâcher.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">02</div>
+<h3 class="proverb-afar">Abaluk ruubeenim able kalah gunnusan</h3>
+<p class="proverb-fr">Négligence aujourd'hui, regret demain.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">03</div>
+<h3 class="proverb-afar">Abte gaba baytaamah gaba abtem mabayta</h3>
+<p class="proverb-fr">Même si l'auteur disparaît, les fruits de son travail demeurent.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">04</div>
+<h3 class="proverb-afar">Akat eleelem yaarreeh gaba teleelem tace</h3>
+<p class="proverb-fr">Une corde sert selon sa longueur alors qu'une main ne peut donner que son contenu.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">05</div>
+<h3 class="proverb-afar">Akeera faxak magexaanaay, fanak mayaduuran.</h3>
+<p class="proverb-fr">On ne va pas dans l’au-delà de son plein gré et on n’en revient pas en cours de route.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">06</div>
+<h3 class="proverb-afar">Yabti agra, caxxi agrak koo laftah.</h3>
+<p class="proverb-fr">Être battu avec les mots est pire qu’être battu avec un bâton.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">07</div>
+<h3 class="proverb-afar">Bissa digirih lem, hantuutal raba takke.</h3>
+<p class="proverb-fr">Ce qui est un amusement pour la chatte provoque la mort du rat.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">08</div>
+<h3 class="proverb-afar">Qaxah gacak gacaanaah, kasah aysuk yayseeni.</h3>
+<p class="proverb-fr">La beauté se perd petit à petit et la sagesse se gagne progressivement.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">09</div>
+<h3 class="proverb-afar">alla qidak yen mari eleelah ma yanay, eleela mari qidah ma yan</h3>
+<p class="proverb-fr">Ceux qui pouvaient tuer le fauve n'arrivent pas à l'atteindre et ceux qui arrivent à l'atteindre n'osent pas le tuer.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">10</div>
+<h3 class="proverb-afar">Ummat ummat itteemit orobtaah, ali garboh orba.</h3>
+<p class="proverb-fr">Les gens finissent par s'entendre et l'animal finit par regagner la forêt.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">11</div>
+<h3 class="proverb-afar">Faxaanam baxaay, faxe waanam kol bahtam baxa.</h3>
+<p class="proverb-fr">On désire un enfant et c'est l'enfant qui cause ce que l'on ne veut pas.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">12</div>
+<h3 class="proverb-afar">Baxi baaxok ukseh yan burta inat caba.</h3>
+<p class="proverb-fr">L'enfant ramasse de la boue du sol avec ses pieds et salit sa mère avec.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">13</div>
+<h3 class="proverb-afar">Kutaay yakkalem leey, wayxexxooy tasmitem le.</h3>
+<p class="proverb-fr">Le chien qui pense à quelque chose et la gazelle est sûre de quelque chose.</p>
+</article>
+
+<article class="proverb-card">
+<div class="proverb-number">14</div>
+<h3 class="proverb-afar">Inti tuble num mawaagissaay, elle tuble’kke waagissa.</h3>
+<p class="proverb-fr">L'œil n'oublie pas une personne vue, mais oublie le lieu où il l'a vue.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">15</div>
+<h3 class="proverb-afar">Yabti adda ardat matabaana, daqar adda ardat taban.</h3>
+<p class="proverb-fr">On ne traverse pas une discussion avec précipitation, on traverse un lit d'oued en courant.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">16</div>
+<h3 class="proverb-afar">Misili misila ceelam meqeeh, baxi abba ceelam meqe.</h3>
+<p class="proverb-fr">Que le proverbe ressemble au proverbe, que le fils ressemble au père.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">17</div>
+<h3 class="proverb-afar">Abit abit boolok koo qidaah, marin kas ayrol koo caba.</h3>
+<p class="proverb-fr">L'excès provoque la chute, le conseil des autres te laisse sous le soleil.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">18</div>
+<h3 class="proverb-afar">Barat caben baaxo kee, qunxih aben xalay meqe’kkel koo cabta.</h3>
+<p class="proverb-fr">Le pays traversé de nuit et le mariage consommé très jeune te placent au bon endroit.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">19</div>
+<h3 class="proverb-afar">Misila yaabat koo qidoonuh kol baahe kee, koo edde xagoonuh kol baahe yakken.</h3>
+<p class="proverb-fr">On utilise le proverbe pour te rappeler une évidence ou pour se critiquer.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">20</div>
+<h3 class="proverb-afar">Gaali qarit weemih qanaabo yakme.</h3>
+<p class="proverb-fr">Le dromadaire surchargé s'attaque aux bâts.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">21</div>
+<h3 class="proverb-afar">Anennol luk rabi yaniih, adrennol luk baaca tani.</h3>
+<p class="proverb-fr">La mort tient compagnie à l'espérance de vie et la faillite tient compagnie à l'appât du gain.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">22</div>
+<h3 class="proverb-afar">Akeera yalla aaxaguk gexxam meqeeh, mandar maalu luk gexxam meqe.</h3>
+<p class="proverb-fr">Il est bénéfique d'aller dans l'au-delà en connaissant Dieu et d'aller en ville avec de l'argent.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">23</div>
+<h3 class="proverb-afar">Atu qunxa caxxat toogore num, kaxxa caxxat koo yaagure.</h3>
+<p class="proverb-fr">La personne que tu agresses avec un petit bâton t'agresse avec un gourdin.</p>
+</article>
+<article class="proverb-card">
+<div class="proverb-number">24</div>
+<h3 class="proverb-afar">Koo able kal umaane kol mahaanaay, xiine kal masoonitan.</h3>
+<p class="proverb-fr">On ne peut t'accuser de mal sans t'avoir vu, on ne peut rêver sans dormir.</p>
+</article>
+<article class="proverb-card"><div class="proverb-number">25</div><h3 class="proverb-afar">Bisol taniimih gaba ruubeenik, gurummal tanim caritta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">26</div><h3 class="proverb-afar">Inti mali wee inti geem yakkaleh bililisa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">27</div><h3 class="proverb-afar">Qari amo yaaqure’kkal yab mayaaqura.</h3></article>
+<article class="proverb-card"><div class="proverb-number">28</div><h3 class="proverb-afar">Cuggayti managray nagarsiisah</h3></article>
+<article class="proverb-card"><div class="proverb-number">29</div><h3 class="proverb-afar">Isi buxal can care num, marin buxal lee cara.</h3></article>
+<article class="proverb-card"><div class="proverb-number">30</div><h3 class="proverb-afar">Kok kalam mali ceerih koh maceeraay, qasa gulub mali koh maaxiggila.</h3></article>
+<article class="proverb-card"><div class="proverb-number">31</div><h3 class="proverb-afar">Kol heenik koo ceele waytam matan .</h3></article>
+<article class="proverb-card"><div class="proverb-number">32</div><h3 class="proverb-afar">Garqi af niqniih, burus xabcini.</h3></article>
+<article class="proverb-card"><div class="proverb-number">33</div><h3 class="proverb-afar">Yallih gintili gexo qax meqeeh, yab xaqam meqe</h3></article>
+<article class="proverb-card"><div class="proverb-number">34</div><h3 class="proverb-afar">Xale wee num xalay xaqamu mayaaxigaay, adangallita robti xaqamu mataaxiga.</h3></article>
+<article class="proverb-card"><div class="proverb-number">35</div><h3 class="proverb-afar">Baaxo’gimi baaxot yaaqiteeh, baaxo abaara.</h3></article>
+<article class="proverb-card"><div class="proverb-number">36</div><h3 class="proverb-afar">Abba cabem baysa baxa kee, abba cabe weem yaddare baxa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">37</div><h3 class="proverb-afar">Atu adunya akah massossa baxi, akeera koh massoysa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">38</div><h3 class="proverb-afar">Atu taaxigem kollih yaaxige num dabaanak koo raaqi maha.</h3></article>
+<article class="proverb-card"><div class="proverb-number">39</div><h3 class="proverb-afar">Ullar raba cubak sugaanaah, ullatinar raba cubak masugan</h3></article>
+<article class="proverb-card"><div class="proverb-number">40</div><h3 class="proverb-afar">Kaxxa num daffeynal yablem, qunxa num soolol mayabla.</h3></article>
+<article class="proverb-card"><div class="proverb-number">41</div><h3 class="proverb-afar">Abba baxi biyaakah gexa baaxo, baxi abbab biyaakah magexa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">42</div><h3 class="proverb-afar">Duqurul luk aben yab, qiddel aben daaco.</h3></article>
+<article class="proverb-card"><div class="proverb-number">43</div><h3 class="proverb-afar">Dubban bagu lee macultaay, duqur bagu yab macula.</h3></article>
+<article class="proverb-card"><div class="proverb-number">44</div><h3 class="proverb-afar">Keekeh argaade kee, burah addih qeebi, num mayaffara.</h3></article>
+<article class="proverb-card"><div class="proverb-number">45</div><h3 class="proverb-afar">Bagi lakmisek deerih xiinan, amob berra qarumut yaxxawwen.</h3></article>
+<article class="proverb-card"><div class="proverb-number">46</div><h3 class="proverb-afar">Uma ullatinak makkita baytaah, abee’gimak fileyni baya.</h3></article>
+<article class="proverb-card"><div class="proverb-number">47</div><h3 class="proverb-afar">Sagak kalla le gabu le num gaca.</h3></article>
+<article class="proverb-card"><div class="proverb-number">48</div><h3 class="proverb-afar">Yaabah yab waanaah, awqah lafa waana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">49</div><h3 class="proverb-afar">Yab gita leeh, qari afa le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">50</div><h3 class="proverb-afar">Yaabak allaaliiy, yaabak axxaari.</h3></article>
+<article class="proverb-card"><div class="proverb-number">51</div><h3 class="proverb-afar">Yab mamakanaay, makkiita mayanxuqana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">52</div><h3 class="proverb-afar">Yab ceela mara leeh, yaabah lafta mari yan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">53</div><h3 class="proverb-afar">Yab numma’kkal magexaay, numma kak maxeqaana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">54</div><h3 class="proverb-afar">Arkat ina yalla darentaah maroxib maro dareema</h3></article>
+<article class="proverb-card"><div class="proverb-number">55</div><h3 class="proverb-afar">Aabukeh umo'immay baxi koh yaabukeeh radeh umo'immay rob koh rada</h3></article>
+<article class="proverb-card"><div class="proverb-number">56</div><h3 class="proverb-afar">Mayakkalana’mmay, mallaasay marrar yakkem xayih.</h3></article>
+<article class="proverb-card"><div class="proverb-number">57</div><h3 class="proverb-afar">Gaalak gexe cintam naharsi alaay, yaagureenim gamaddi ala.</h3></article>
+<article class="proverb-card"><div class="proverb-number">58</div><h3 class="proverb-afar">Kum edde raaqisan yalli yan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">59</div><h3 class="proverb-afar">Cuggaanek cal kot tabaah, bisi moynobuk kot taba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">60</div><h3 class="proverb-afar">Able kal ma-yaaxigaanay atce kal ma yanxuqaana</h3></article>
+<article class="proverb-card"><div class="proverb-number">61</div><h3 class="proverb-afar">Gaddali agritam mayakkalaanaay, maxala qakkottam mayakkalaana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">62</div><h3 class="proverb-afar">Xiiba caxak orbe koo makaltaay, buxa kok masarrowta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">63</div><h3 class="proverb-afar">Isi laa teffere takra, marin laa matafqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">64</div><h3 class="proverb-afar">Erbat isit tan booha matablaay mara tan booha qedebta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">65</div><h3 class="proverb-afar">Sinkiliiliqis isi gubal tanim ayrol cabtaah, marin gubal tanin iraawissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">66</div><h3 class="proverb-afar">Yalli baahem kee, danan darit namma gabah kafan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">67</div><h3 class="proverb-afar">Koo’gimi koh aba caddi maliiy, kuti lafah aba caddi mali.</h3></article>
+<article class="proverb-card"><div class="proverb-number">68</div><h3 class="proverb-afar">Uma num kee kuta isi buxal haw kot itta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">69</div><h3 class="proverb-afar">Macri dab gaba yangem meqeeh, inki alah baxi barud lem meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">70</div><h3 class="proverb-afar">Alak teyna baxi iba sissikiih, baarrak teyna baxi yab sissiki.</h3></article>
+<article class="proverb-card"><div class="proverb-number">71</div><h3 class="proverb-afar">Qunxa num kaqtek xaak amo koraah, yaabek yaabak amo kora.</h3></article>
+<article class="proverb-card"><div class="proverb-number">72</div><h3 class="proverb-afar">Migaq guran magaq waay lakal leeh, yoo abula yaaqura lakal le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">73</div><h3 class="proverb-afar">Waay, wayto lakal le.</h3></article>
+
+<article class="proverb-card"><div class="proverb-number">74</div><h3 class="proverb-afar">Num migaq waamak, maagaqa waam tayse.</h3></article>
+<article class="proverb-card"><div class="proverb-number">75</div><h3 class="proverb-afar">Yalli ruubeemik barasaay macinaanaay, baxi baceemik biiluuy macinaana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">76</div><h3 class="proverb-afar">Fayya ittakke guma garrissaah, numuk naba num cami garrissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">77</div><h3 class="proverb-afar">Meqen xic bagu maduucaay, fugutto baxa mataynaba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">78</div><h3 class="proverb-afar">Waytem wab koo haytaah, tinqibem baaxo koo waksissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">79</div><h3 class="proverb-afar">Qaku luk cinen caakale, gabul lon saaku mageyan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">80</div><h3 class="proverb-afar">Numma diraabak lafuh umah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">81</div><h3 class="proverb-afar">Suge numuk xaagu abiiy, fayya le’kkel sooli.</h3></article>
+<article class="proverb-card"><div class="proverb-number">82</div><h3 class="proverb-afar">Sarra temeetek, sarrak bixiqqi maca koo hayte.</h3></article>
+<article class="proverb-card"><div class="proverb-number">83</div><h3 class="proverb-afar">Afah yok gaca itta’mmay, afal wayya koo hee lon.</h3></article>
+<article class="proverb-card"><div class="proverb-number">84</div><h3 class="proverb-afar">Gexa kok maxca’mmay, gexa itta koora kol heyyo.</h3></article>
+<article class="proverb-card"><div class="proverb-number">85</div><h3 class="proverb-afar">Gasob boolak ali koo raaraah, atu cabte’kkek mari koo raara.</h3></article>
+<article class="proverb-card"><div class="proverb-number">86</div><h3 class="proverb-afar">Rakub isih tece gaba kok yakme.</h3></article>
+<article class="proverb-card"><div class="proverb-number">87</div><h3 class="proverb-afar">Uma num kok yakkeeh, koh mayaabba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">88</div><h3 class="proverb-afar">Uxih taniimit mayasissikan, yallak koo geytam macinan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">89</div><h3 class="proverb-afar">Koh xale wee dagar koh madudduba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">90</div><h3 class="proverb-afar">Yaabal yab geyaanaah, iful baaxo geyan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">91</div><h3 class="proverb-afar">Rubsuusuh daaba korana’kkal, farriimih daaba makoran.</h3></article>
+<article class="proverb-card"><div class="proverb-number">92</div><h3 class="proverb-afar">Nabsi rabek, nabsi fayri maraqta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">93</div><h3 class="proverb-afar">Ala tuble alaa kee, able wayte ala, inki gila mabta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">94</div><h3 class="proverb-afar">Gaali kak gilte tabeynah magaca.</h3></article>
+<article class="proverb-card"><div class="proverb-number">95</div><h3 class="proverb-afar">Agar agar numma baysaah, numma dirab bayissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">96</div><h3 class="proverb-afar">Mare inak xayiih, ulqi salcek xayi.</h3></article>
+<article class="proverb-card"><div class="proverb-number">97</div><h3 class="proverb-afar">Cane qammi baxi koh gahsaah, cami naggali koh gacsa..</h3></article>
+<article class="proverb-card"><div class="proverb-number">98</div><h3 class="proverb-afar">Axim kartiqqiyaah, ramad hirgimmiya.</h3></article>
+<article class="proverb-card"><div class="proverb-number">99</div><h3 class="proverb-afar">Abu kee amri koo mahawenta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">100</div><h3 class="proverb-afar">Abu umo mareedaay, ina umo mayamqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">101</div><h3 class="proverb-afar">Cabu waa daban, cabe waa migaq kot caba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">102</div><h3 class="proverb-afar">Caggob bagu kee girib bagu, karraccatta’kke macabta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">103</div><h3 class="proverb-afar">Maabboonuk cankarek, maballoonul rada.</h3></article>
+<article class="proverb-card"><div class="proverb-number">104</div><h3 class="proverb-afar">Gile tirgiqe’kke urtaah, arraba tigiqe’kke m’urta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">105</div><h3 class="proverb-afar">Gali le ali, saaqatah haada.</h3></article>
+<article class="proverb-card"><div class="proverb-number">106</div><h3 class="proverb-afar">Sissikaane faxaanamah, namma iba inki waqdi mayakkuqan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">107</div><h3 class="proverb-afar">Caacay robti merraytuuy, misili yabti merraytu.</h3></article>
+<article class="proverb-card"><div class="proverb-number">108</div><h3 class="proverb-afar">Feera baaxoh ascossaay, misili yabti ascossa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">109</div><h3 class="proverb-afar">Amo abaluk raatah magacan, gita abaluk boolot maradan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">110</div><h3 class="proverb-afar">Akkalah baxa kol haan amxaqah daaba kol koran</h3></article>
+<article class="proverb-card"><div class="proverb-number">111</div><h3 class="proverb-afar">Akke wayni ma yakkaay danan laa ma kora</h3></article>
+<article class="proverb-card"><div class="proverb-number">112</div><h3 class="proverb-afar">Abbak raqtem baxi nagraah, caxak raddem kimbiro onkossa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">113</div><h3 class="proverb-afar">Laa kee labha ayballaayat le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">114</div><h3 class="proverb-afar">Yaaben yab kee qalaama caddit koo wagitta</h3></article>
+<article class="proverb-card"><div class="proverb-number">115</div><h3 class="proverb-afar">Yab able waytam biyaakaay, tubleh cabtam biyaaka.</h3></article>
+<article class="proverb-card"><div class="proverb-number">116</div><h3 class="proverb-afar">Gaali dabqak amo korseniih,wadar buxah beyan qibina maballiyo.</h3></article>
+<article class="proverb-card"><div class="proverb-number">117</div><h3 class="proverb-afar">Misili yabti foocat yamaateeh, qaanale robti foocat tamaate.</h3></article>
+<article class="proverb-card"><div class="proverb-number">118</div><h3 class="proverb-afar">Yab yabti bagut koo qidaah, faras buttab bagut koo qidda.</h3></article>
+<article class="proverb-card"><div class="proverb-number">119</div><h3 class="proverb-afar">Caxa carartek, caxag gubi cararah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">120</div><h3 class="proverb-afar">Yaabal yab haanaah, dalet caxa haana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">121</div><h3 class="proverb-afar">K’aafih innah koh m’iyyaanaay, k’untih innah koh mayablaana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">122</div><h3 class="proverb-afar">Atu cerrittek ku qangara cerrittah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">123</div><h3 class="proverb-afar">Yab bagu culsaanaah, yaabat bagu maculan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">124</div><h3 class="proverb-afar">Baarrag gacta baarra soolak koo cabtaah, caxag gacta caxa ayrol koo cabta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">125</div><h3 class="proverb-afar">Yab kee nagra qaduk koh abaanam meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">126</div><h3 class="proverb-afar">Yalli edde yani itte gobla-goblaali.</h3></article>
+<article class="proverb-card"><div class="proverb-number">127</div><h3 class="proverb-afar">Yalla kee yallih adam awka inki gabu kok magacta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">128</div><h3 class="proverb-afar">Rabi rabbik koo mayaakumaay, gile siibok koo mataakuma.</h3></article>
+<article class="proverb-card"><div class="proverb-number">129</div><h3 class="proverb-afar">Gira tubleeh, girah taduurem buuti.</h3></article>
+<article class="proverb-card"><div class="proverb-number">130</div><h3 class="proverb-afar">Say num isim leh ikkal akah leh gide mayaarigan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">131</div><h3 class="proverb-afar">Faxeenim waanam saami umaane hinnaay, faxen num waanam saami umaane.</h3></article>
+<article class="proverb-card"><div class="proverb-number">132</div><h3 class="proverb-afar">Kallaci kallaci maxeqaay, kallaci daro ceyyag gad mali.</h3></article>
+<article class="proverb-card"><div class="proverb-number">133</div><h3 class="proverb-afar">Gabak irob bagul caben ayrol rade waa baxa kee, gabak addab bagul caben ayrok hore waa baxa.</h3></article>
+
+<article class="proverb-card"><div class="proverb-number">134</div><h3 class="proverb-afar">Yaaxigi baxah kinissi haanaah, toogimi baxah bagul hayya</h3></article>
+<article class="proverb-card"><div class="proverb-number">135</div><h3 class="proverb-afar">Seeka kee xayyite laah, yalli abam mawaa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">136</div><h3 class="proverb-afar">Kicnoonumuk raaqiiy, kacanuk raaqi.</h3></article>
+<article class="proverb-card"><div class="proverb-number">137</div><h3 class="proverb-afar">Kataysa kataysam migaaqah mafaxaay, mareyta baadon kalluwuh mafaxa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">138</div><h3 class="proverb-afar">Yi kataysaw ittek dagraanam meqeeh, yi mareytay ittek fugutaanam meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">139</div><h3 class="proverb-afar">Uma baarra kee barka bagu kok carrissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">140</div><h3 class="proverb-afar">Atu adooniyah xin waytaah, akeera koh xin wayta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">141</div><h3 class="proverb-afar">Ku mala bagut sugtaah, yallih mala dagak tamaate.</h3></article>
+<article class="proverb-card"><div class="proverb-number">142</div><h3 class="proverb-afar">Iftih ifti radaah, qanaytul kaxxa ali rada.</h3></article>
+<article class="proverb-card"><div class="proverb-number">143</div><h3 class="proverb-afar">kud kuddi qilsa le midir abitak sugeeh, qawiiti sissikaane le tirfi yoh yemeete.</h3></article>
+<article class="proverb-card"><div class="proverb-number">144</div><h3 class="proverb-afar">Allal hida meqeeh, garil goori meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">145</div><h3 class="proverb-afar">Baarra mawaanaay, baalla waana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">146</div><h3 class="proverb-afar">Baxah aysina abba maballiyooy, dananah deesan garbo maballiyo.</h3></article>
+<article class="proverb-card"><div class="proverb-number">147</div><h3 class="proverb-afar">Migaq maaluh xeqam maliiy, masi duuluh xeqem mali.</h3></article>
+<article class="proverb-card"><div class="proverb-number">148</div><h3 class="proverb-afar">Data gaala waalta caxa taniih, buxa liyol aylahita qibnayti yani.</h3></article>
+<article class="proverb-card"><div class="proverb-number">149</div><h3 class="proverb-afar">Darri ceelak koo takme abeysa kee, ku num ceelak koo qida num koo aylahissah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">150</div><h3 class="proverb-afar">Maali y’abbak yoh raaqe ittam meqeeh,yab hebeli yoh yaaxige ittam meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">151</div><h3 class="proverb-afar">Yab koo yaxeeh, lee koo beytah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">152</div><h3 class="proverb-afar">Lubak naharak ku ala yakmeeh, ku alah bagul koo yakme.</h3></article>
+<article class="proverb-card"><div class="proverb-number">153</div><h3 class="proverb-afar">Dir innek nee yakmem faxa alaay, tibbinek ni laa yakmem faxa ala.</h3></article>
+<article class="proverb-card"><div class="proverb-number">154</div><h3 class="proverb-afar">Koo weenik ,k’abbah caneh koo qidaana.</h3></article>
+<article class="proverb-card"><div class="proverb-number">155</div><h3 class="proverb-afar">Kabri K’aamo mayamaata, atu kabri amoh tamaate.</h3></article>
+<article class="proverb-card"><div class="proverb-number">156</div><h3 class="proverb-afar">Baxa weenik bàxa baxa fuktaanaah, can weenik lee yaaquben.</h3></article>
+<article class="proverb-card"><div class="proverb-number">157</div><h3 class="proverb-afar">Num dubuk ani iyyam isi fayla celtaah, labha yol luk tani iyyam labha fayla celta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">158</div><h3 class="proverb-afar">Bagut qilmi kak dago num kee, qadammo addat kak dago girib, kakacac xiini koo mahayta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">159</div><h3 class="proverb-afar">Data afat afti abacic xin waanam kee, atu faxxa num koo faxe waam umaanek tanih tan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">160</div><h3 class="proverb-afar">Ummat ittem sifa leeh, argaceyni cado summi le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">161</div><h3 class="proverb-afar">Atu faxxaamah koo kee ku mareytah buxa inki Kabul mataarra.</h3></article>
+<article class="proverb-card"><div class="proverb-number">162</div><h3 class="proverb-afar">Umaane aytih obbal catak yen marih xaylo, abalih cate wayta wakti yemeete.</h3></article>
+<article class="proverb-card"><div class="proverb-number">163</div><h3 class="proverb-afar">Yan qaxi maaciselek gira yol m’ursin itte.</h3></article>
+<article class="proverb-card"><div class="proverb-number">164</div><h3 class="proverb-afar">wadar isik naba qale tewqek, daqa’mmay dalka dahta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">165</div><h3 class="proverb-afar">Balli buxa waktek buxa baysaah, qale waktek qale baysa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">166</div><h3 class="proverb-afar">Inti kaxxa qari wagittaah, barkat qunxa qarit raaqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">167</div><h3 class="proverb-afar">Qalli loqo yaggiriqqeeh, rob bar rada.</h3></article>
+<article class="proverb-card"><div class="proverb-number">168</div><h3 class="proverb-afar">Tasuule baarra kee mukur iyya caxxa koo aylahissah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">169</div><h3 class="proverb-afar">Duqur yaabek yaabah kol missoowaah, rabek kabri kol missowsa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">170</div><h3 class="proverb-afar">Urru kee agabu tuble caxxak meesitta’kkal, able wayte yallak mameesitta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">171</div><h3 class="proverb-afar">Idalti awwal abne kee buurar raaqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">172</div><h3 class="proverb-afar">Kaxxa num atu tinkisek migaaqaay, koo yinkisek migaaqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">173</div><h3 class="proverb-afar">Ama caakale tukkuqek qabalat koo bayseleeh, cabtek migaq kok aalle le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">174</div><h3 class="proverb-afar">Iyyeenim yangaddeenim meesitan waqdi, yeceenim yangaddeenim baacak meesitan waqdi.</h3></article>
+<article class="proverb-card"><div class="proverb-number">175</div><h3 class="proverb-afar">Dubuk tan ikkel yaameenim qeebik cayna gidiiy, sinam garil yameenim sinam nee catta gidi.</h3></article>
+<article class="proverb-card"><div class="proverb-number">176</div><h3 class="proverb-afar">Baarra koh yaceenih ikkal koh maquukan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">177</div><h3 class="proverb-afar">Yaabeenim yab matakkaay, edde cabeenim yab takke.</h3></article>
+<article class="proverb-card"><div class="proverb-number">178</div><h3 class="proverb-afar">Yalla’gimi yalla kok yaakumeh.</h3></article>
+<article class="proverb-card"><div class="proverb-number">179</div><h3 class="proverb-afar">Gaala luk duude ween qibnaytiino kee birta luk duude ween koosa, bisol mataysa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">180</div><h3 class="proverb-afar">Sinaamak fayxi missowta’kkal, bagi qarum mamissoowa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">181</div><h3 class="proverb-afar">Ceelo madqak qunxah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">182</div><h3 class="proverb-afar">Makkotuuy maacisaanah, xaganahaay kuulaanah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">183</div><h3 class="proverb-afar">Cunxo islaaminnak koo tayyaaqeeh, kallaci tu mali koo aba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">184</div><h3 class="proverb-afar">Baaca kee gaddaliinok tii ti yanxuqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">185</div><h3 class="proverb-afar">Siraf kee mirkablo baxi daban maqambalta</h3></article>
+<article class="proverb-card"><div class="proverb-number">186</div><h3 class="proverb-afar">Aayat gaba koh cassaah, mirkablo buxaak koo beyta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">187</div><h3 class="proverb-afar">Arde kal meeleelaanaay, able kal mayabbixan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">188</div><h3 class="proverb-afar">Cayye kal madigraanaay, digre kal mayaddigillan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">189</div><h3 class="proverb-afar">Rabe lubaakih baxa takkeemik, yan wakrih baxa takkem meqe.</h3></article>
+<article class="proverb-card"><div class="proverb-number">190</div><h3 class="proverb-afar">Labha lawsaanah , gaala debraanah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">191</div><h3 class="proverb-afar">Duqur yuble boohak maraaqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">192</div><h3 class="proverb-afar">Abte xiiba akeera koo kassissa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">193</div><h3 class="proverb-afar">Migaq ceelol meqeeh, magaq maqaanel meqe.</h3></article>
+
+<article class="proverb-card"><div class="proverb-number">194</div><h3 class="proverb-afar">Kaqleenik amok kaqlaanaah, wagreenik baguuk yamqeeni.</h3></article>
+<article class="proverb-card"><div class="proverb-number">195</div><h3 class="proverb-afar">Seehadayti cadoyta matankammaay, qangara tankamme.</h3></article>
+<article class="proverb-card"><div class="proverb-number">196</div><h3 class="proverb-afar">Qeebik mabayaanaay, raaqak bayan.</h3></article>
+<article class="proverb-card"><div class="proverb-number">197</div><h3 class="proverb-afar">Yab catan foxo le kalah, catan geera mali.</h3></article>
+<article class="proverb-card"><div class="proverb-number">198</div><h3 class="proverb-afar">Garsi maa abbah baxaay, qeero caba.</h3></article>
+<article class="proverb-card"><div class="proverb-number">199</div><h3 class="proverb-afar">San yootokeenik inti ximomta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">200</div><h3 class="proverb-afar">Inki num baaxo maxiinisa kal, baaxo xiine kalam duudah.</h3></article>
+<article class="proverb-card"><div class="proverb-number">201</div><h3 class="proverb-afar">Marug qaran yablem yasguuden carra.</h3></article>
+<article class="proverb-card"><div class="proverb-number">202</div><h3 class="proverb-afar">Kaaqayti mangoomuh koora masela.</h3></article>
+<article class="proverb-card"><div class="proverb-number">203</div><h3 class="proverb-afar">Ku num k’aabbiiy, karma k’aabbi.</h3></article>
+<article class="proverb-card"><div class="proverb-number">204</div><h3 class="proverb-afar">Mariiy qaada leeh, aliiy ibbix le.</h3></article>
+<article class="proverb-card"><div class="proverb-number">205</div><h3 class="proverb-afar">Qeero aquba iyya numuk yaaqube numuh tayse.</h3></article>
+<article class="proverb-card"><div class="proverb-number">206</div><h3 class="proverb-afar">Xuune baytu waytek galwa bahta .</h3></article>
+<article class="proverb-card"><div class="proverb-number">207</div><h3 class="proverb-afar">Ulla qaasir leeh, ullâ baxi qaasir le</h3></article>
+<article class="proverb-card"><div class="proverb-number">208</div><h3 class="proverb-afar">Koxxayi koxxayiih, Macammad nabi kot xayi :</h3></article>
+<article class="proverb-card"><div class="proverb-number">209</div><h3 class="proverb-afar">Caaraw saro yot geyteh</h3></article>
+<article class="proverb-card"><div class="proverb-number">210</div><h3 class="proverb-afar">Toobokok inâ xaylo xayi, inâ xaylok ganga xayi :</h3></article>
+<article class="proverb-card"><div class="proverb-number">211</div><h3 class="proverb-afar">Gaala edde yacoonu waan labha gaalal qidan :</h3></article>
+<article class="proverb-card"><div class="proverb-number">212</div><h3 class="proverb-afar">Tu kot tani rabaay, ku kot matani raba</h3></article>
+<article class="proverb-card"><div class="proverb-number">213</div><h3 class="proverb-afar">Meqem maxco temberek yaameenih</h3></article>
+<article class="proverb-card"><div class="proverb-number">214</div><h3 class="proverb-afar">Ku sifa lem ku summi maliiy, ku suumi lem ku sifa mali :</h3></article>
+<article class="proverb-card"><div class="proverb-number">215</div><h3 class="proverb-afar">Kaxxa caxat silaalah asaanaah, kaxxa buxat camih asan : maburuta. :</h3></article>
+<article class="proverb-card"><div class="proverb-number">216</div><h3 class="proverb-afar">Teelemek inni koh ma burutaay, tengeddek yalla koh</h3></article>
+<article class="proverb-card"><div class="proverb-number">217</div><h3 class="proverb-afar">Geyto teellek koh dayliseyyoh, yoo ma ceelinat koh abam mayyu :</h3></article>
+<article class="proverb-card"><div class="proverb-number">218</div><h3 class="proverb-afar">Yoo kee barud bahnu waynam bahnah :</h3></article>
+<article class="proverb-card"><div class="proverb-number">219</div><h3 class="proverb-afar">Rabe danan salaf caxoh m’ukta</h3></article>
+<article class="proverb-card"><div class="proverb-number">220</div><h3 class="proverb-afar">Deedala wacarriy raysa koo aba</h3></article>
+<article class="proverb-card"><div class="proverb-number">221</div><h3 class="proverb-afar">Wareeri qaso kee qulul bagu kok takme</h3></article>
+<article class="proverb-card"><div class="proverb-number">222</div><h3 class="proverb-afar">Uma numuh aben maqaane, ceyiteew boogew koo hayta :</h3></article>
+<article class="proverb-card"><div class="proverb-number">223</div><h3 class="proverb-afar">Raba kee cami inki bura garrisa</h3></article>
+<article class="proverb-card"><div class="proverb-number">224</div><h3 class="proverb-afar">Laak laaxagur awqekkah laa ma xaggursuma</h3></article>
+<article class="proverb-card"><div class="proverb-number">225</div><h3 class="proverb-afar">Maqduur ala kol ruubah, bexxi qeebi kol ugusa</h3></article>
+<article class="proverb-card"><div class="proverb-number">226</div><h3 class="proverb-afar">Inki ala bool takkeeh boolok raddah</h3></article>
+<article class="proverb-card"><div class="proverb-number">227</div><h3 class="proverb-afar">Maaselli masalal yankammeeh, basro baxal quukan</h3></article>
+<article class="proverb-card"><div class="proverb-number">228</div><h3 class="proverb-afar">Uma’kkel nani iyyeenih cabe sinnoonum taniih, meqe’kkel nani iyyeenih, axce sinnoonum tan</h3></article>
+<article class="proverb-card"><div class="proverb-number">229</div><h3 class="proverb-afar">Yab iyyam qisi iyyah ma yanaay, qisi iyyam yab iyyah ma</h3></article>
+<article class="proverb-card"><div class="proverb-number">230</div><h3 class="proverb-afar">Amo kak alle wayta arraba mannal loowitta ?</h3></article>
+<article class="proverb-card"><div class="proverb-number">231</div><h3 class="proverb-afar">Yalla aaxige waa mari yok raaqe</h3></article>
+<article class="proverb-card"><div class="proverb-number">232</div><h3 class="proverb-afar">Makkaaba sugum neh ma radinnay, edde haysita n’agabi mali</h3></article>
+<article class="proverb-card"><div class="proverb-number">233</div><h3 class="proverb-afar">Y’inah baxá gumay ko’llih neggele cadoh falo wayneh – intem wakri iyyam lubaaka</h3></article>
+<article class="proverb-card"><div class="proverb-number">234</div><h3 class="proverb-afar">Takke bahtem alliy bahtu waytam alli _ intem wakriiy, kak</h3></article>
+<article class="proverb-card"><div class="proverb-number">235</div><h3 class="proverb-afar">Goroyyâ saga xaltuh , k’awur ankek xale ?</h3></article>
+<article class="proverb-card"><div class="proverb-number">236</div><h3 class="proverb-afar">Koo cabtam hinnak boolok rad – intem wakriiy, kak iyyem yangula Meqelli Igimi Muussa)</h3></article>
+<article class="proverb-card"><div class="proverb-number">237</div><h3 class="proverb-afar">Qasá turki maxu waam anu inni kasa ayro hinna.</h3></article>
+<article class="proverb-card"><div class="proverb-number">238</div><h3 class="proverb-afar">Texxeerem tama gide sugtaah, toomem tamah xalta.</h3></article>
+<article class="proverb-card"><div class="proverb-number">239</div><h3 class="proverb-afar">Illow salaamata, illi gabboy salaamata – intem Igimi Qasso</h3></article>
+<article class="proverb-card"><div class="proverb-number">240</div><h3 class="proverb-afar">A yi gabat bayissem, yi uma buxa – intem Igimi qasso</h3></article>
+<article class="proverb-card"><div class="proverb-number">241</div><h3 class="proverb-afar">y’abba kudde koqoso k’abba ma yabbixa – intem Sumaaqil Dardara. gidet kok ma taggiriqqa.</h3></article>
+<article class="proverb-card"><div class="proverb-number">242</div><h3 class="proverb-afar">Rabi ebertô carrak koo ma lafaay, deerooy ebertô carrih</h3></article>
+<article class="proverb-card"><div class="proverb-number">243</div><h3 class="proverb-afar">Maaluk affare wayneeh kasak aaxige wayne birtay sinam qidda tene. Intem Meqelli Qali</h3></article>
+<article class="proverb-card"><div class="proverb-number">244</div><h3 class="proverb-afar">Baaxo gubus baaxo caba _ intem Meqelli Casili</h3></article>
+<article class="proverb-card"><div class="proverb-number">245</div><h3 class="proverb-afar">Baraak naymaaqay itte cayyuuka anxaxxowteeh, saaku aymaaqenno itte oylayto qaddowte</h3></article>
+<article class="proverb-card"><div class="proverb-number">246</div><h3 class="proverb-afar">Abe wayiiy, alâ bise wayi</h3></article>
+<article class="proverb-card"><div class="proverb-number">247</div><h3 class="proverb-afar">Can nakah ma gexaay, caagid ma baysa</h3></article>
+<article class="proverb-card"><div class="proverb-number">248</div><h3 class="proverb-afar">kulli musiiba Qeysa gariiqo m’abbitaay, Sahlu yi loyna _ intem Keefarah Cummo</h3></article>
+<article class="proverb-card"><div class="proverb-number">249</div><h3 class="proverb-afar">Suun sarba maliiy, gaddi qayto mali’mmay mara kak</h3></article>
+<article class="proverb-card"><div class="proverb-number">250</div><h3 class="proverb-afar">Ko’llih aaminnaanim ku wadaytu intem Meqelli Qali Macammada</h3></article>
+<article class="proverb-card"><div class="proverb-number">251</div><h3 class="proverb-afar">Reyta mantuuy, reeda mantuk reedon yo’llih yabtay xih –</h3></article>
+<article class="proverb-card"><div class="proverb-number">252</div><h3 class="proverb-afar">Koh abeenik koo cina migaq ma yan _ intem Onâ Cummadda</h3></article>
+
+</div>
+
+<p class="proverb-source">
+Liste de proverbes afar : source fournie, © 2015 Abubakar Macammad (Aysaqiita).
+Les traductions françaises ne sont affichées que lorsqu’elles figuraient déjà dans la page d’origine.
+</p>
+</section>
+</main>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>
