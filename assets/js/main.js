@@ -30,8 +30,76 @@ const setupDropdown = (item, menu) => {
     });
 };
 
-setupDropdown(languageItem, cultureItem);
+setupDropdown(languageItem, languageMenu);
 setupDropdown(cultureItem, cultureMenu);
+
+const isHomePage = () => {
+    const path = window.location.pathname.split('/').pop() || '';
+    return path === '' || path === 'index.html';
+};
+
+
+if (!isHomePage()) {
+    const reminder = document.createElement('section');
+    reminder.className = 'language-help';
+
+    reminder.innerHTML = `
+        <button
+            type="button"
+            class="language-help__button"
+            aria-expanded="false"
+            aria-controls="language-help-content"
+        >
+            Rappel linguistique
+            <span class="language-help__arrow">＋</span>
+        </button>
+
+        <div
+            class="language-help__content"
+            id="language-help-content"
+            hidden
+        >
+            <h3>À RETENIR / RAAQIS</h3>
+
+            <p>
+                À retenir : seules
+                <strong>trois lettres afar</strong>
+                diffèrent du français :
+            </p>
+
+            <ul>
+                <li><strong>q</strong> = <em>ع</em></li>
+                <li><strong>x</strong> = <em>د rétroflexe</em></li>
+                <li><strong>c</strong> = <em>ح guttural</em></li>
+            </ul>
+
+            <p>
+                Le <strong>h</strong> afar se prononce comme dans
+                <em>هذ</em>.
+            </p>
+        </div>
+    `;
+
+    const button = reminder.querySelector('.language-help__button');
+    const content = reminder.querySelector('.language-help__content');
+    const arrow = reminder.querySelector('.language-help__arrow');
+
+    button.addEventListener('click', () => {
+        const isOpening = content.hidden;
+
+        content.hidden = !isOpening;
+        button.setAttribute('aria-expanded', String(isOpening));
+        arrow.textContent = isOpening ? '−' : '＋';
+    });
+
+    // Placer le rappel au-dessus du contenu de la page
+    const target =
+        document.querySelector('main') ||
+        document.querySelector('.page-content') ||
+        document.body;
+
+    target.prepend(reminder);
+}
 
 
 const verbes = [
@@ -982,4 +1050,100 @@ window.firebaseConfig = {
     messagingSenderId: "933404504042",
     appId: "1:933404504042:web:c1667f6ff1a5049952cc93",
     measurementId: "G-5L2ZWDJR8K"
-};
+}
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.territoire-afar section');
+
+    if (!('IntersectionObserver' in window)) {
+        sections.forEach(section => section.classList.add('visible'));
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.12
+    });
+
+    sections.forEach(section => observer.observe(section));
+});
+
+
+/* Agrandissement des images au clic */
+(() => {
+    // Évite de créer plusieurs fenêtres d'agrandissement.
+    if (document.querySelector(".image-lightbox")) return;
+
+    const lightbox = document.createElement("div");
+    lightbox.className = "image-lightbox";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Image agrandie");
+
+    const closeButton = document.createElement("button");
+    closeButton.className = "image-lightbox-close";
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Fermer l'image");
+    closeButton.innerHTML = "&times;";
+
+    const enlargedImage = document.createElement("img");
+    enlargedImage.alt = "";
+
+    lightbox.append(closeButton, enlargedImage);
+    document.body.appendChild(lightbox);
+
+    let previousFocus = null;
+
+    function openLightbox(img) {
+        previousFocus = document.activeElement;
+
+        enlargedImage.src = img.currentSrc || img.src;
+        enlargedImage.alt = img.alt || "Image agrandie";
+
+        lightbox.classList.add("is-open");
+        document.body.classList.add("lightbox-open");
+        closeButton.focus();
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove("is-open");
+        document.body.classList.remove("lightbox-open");
+        enlargedImage.removeAttribute("src");
+
+        if (previousFocus && typeof previousFocus.focus === "function") {
+            previousFocus.focus();
+        }
+    }
+
+    // Fonctionne aussi sur les images ajoutées ou dupliquées ensuite.
+    document.addEventListener("click", (event) => {
+        const img = event.target.closest(
+            ".image-zoomable, .cycle-track img"
+        );
+
+        if (img && !lightbox.contains(img)) {
+            openLightbox(img);
+        }
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", (event) => {
+        if (event.target === lightbox) {
+            closeLightbox();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && lightbox.classList.contains("is-open")) {
+            closeLightbox();
+        }
+    });
+})();
