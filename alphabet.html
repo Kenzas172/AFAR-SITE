@@ -125,7 +125,7 @@
                 <article class="special-card">
                     <div class="special-letter">c</div>
                     <h3>La consonne pharyngale sourde</h3>
-                    <p>Le “c” afar est un <strong>h guttural très prononcé</strong>, plus fort que le “h” français ( lu d'ailleurs comme le  ه هه)et produit dans la gorge.</p>
+                    <p>Le “c” afar est un <strong>h guttural très prononcé produit dans la gorge</strong>, plus fort que le “h” français.</p>
                 </article>
             </div>
         </section>
@@ -172,38 +172,6 @@
             </div>
         </section>
 
-        <section class="alphabet-section quiz-section">
-            <div class="section-heading">
-                <span class="mini-tag">Partie 4</span>
-                <h2>Test rapide</h2>
-            </div>
-
-            <div class="quiz-shell">
-                <div class="quiz-card">
-                    <div class="quiz-header">
-                        <span class="quiz-progress" id="quiz-progress">Question 1/3</span>
-                        <span class="quiz-score" id="quiz-score">Score : 0</span>
-                    </div>
-
-                    <div class="quiz-body">
-                        <p id="quiz-question" class="quiz-question"></p>
-                        <div id="quiz-options" class="quiz-options" aria-live="polite"></div>
-                    </div>
-
-                    <div class="quiz-footer">
-                        <button type="button" id="quiz-next" class="primary-btn quiz-next hidden">Question suivante</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="alphabet-section conclusion-box">
-            <h2>Conclusion</h2>
-            <p>
-                L’alphabet afar est simple à apprendre, mais unique par ses trois consonnes spéciales.
-                Comprendre ces sons est essentiel pour lire, écrire et prononcer correctement la langue afar.
-            </p>
-        </section>
 
         <p class="page-back-link"><a href="langue.html">← Retour à la page Langue</a></p>
 
@@ -228,111 +196,7 @@
         <p>© 2026 — Projet de valorisation de la langue et culture Afar</p>
     </footer>
 
-    <script src="assets/js/main.js"></script>
-    <script>
-        const questions = [
-            {
-                prompt: "Clique sur la lettre qui fait le son q.",
-                choices: ["a", "q", "u", "d"],
-                correct: "q"
-            },
-            {
-                prompt: "Quelle lettre est rétroflexe ?",
-                choices: ["h", "x", "o", "m"],
-                correct: "x"
-            },
-            {
-                prompt: "Quelle voyelle est longue ?",
-                choices: ["a", "aa", "e", "i"],
-                correct: "aa"
-            }
-        ];
+<script src="assets/js/main.js"></script>
 
-        const questionEl = document.getElementById('quiz-question');
-        const optionsEl = document.getElementById('quiz-options');
-        const progressEl = document.getElementById('quiz-progress');
-        const scoreEl = document.getElementById('quiz-score');
-        const nextBtn = document.getElementById('quiz-next');
-
-        let currentIndex = 0;
-        let score = 0;
-        let answered = false;
-
-        function renderQuestion() {
-            const current = questions[currentIndex];
-            progressEl.textContent = `Question ${currentIndex + 1}/${questions.length}`;
-            scoreEl.textContent = `Score : ${score}`;
-            questionEl.textContent = current.prompt;
-            optionsEl.innerHTML = '';
-            answered = false;
-            nextBtn.classList.add('hidden');
-
-            current.choices.forEach((choice) => {
-                const button = document.createElement('button');
-                button.type = 'button';
-                button.className = 'quiz-btn';
-                button.textContent = choice;
-                button.addEventListener('click', () => handleAnswer(button, choice, current.correct));
-                optionsEl.appendChild(button);
-            });
-        }
-
-        function handleAnswer(button, selected, correct) {
-            if (answered) return;
-            answered = true;
-
-            const buttons = [...optionsEl.querySelectorAll('.quiz-btn')];
-            buttons.forEach((btn) => {
-                btn.disabled = true;
-                btn.classList.remove('correct', 'wrong');
-                if (btn.textContent.trim() === correct) {
-                    btn.classList.add('correct');
-                }
-            });
-
-            if (selected === correct) {
-                score += 1;
-                scoreEl.textContent = `Score : ${score}`;
-                button.classList.add('correct');
-            } else {
-                button.classList.add('wrong');
-            }
-
-            if (currentIndex < questions.length - 1) {
-                nextBtn.classList.remove('hidden');
-            } else {
-                nextBtn.textContent = 'Voir le résultat';
-                nextBtn.classList.remove('hidden');
-            }
-        }
-
-        nextBtn.addEventListener('click', () => {
-            if (currentIndex < questions.length - 1) {
-                currentIndex += 1;
-                renderQuestion();
-            } else {
-                questionEl.textContent = `Bravo ! Tu as obtenu ${score} / ${questions.length}.`;
-                optionsEl.innerHTML = '';
-                progressEl.textContent = 'Terminé';
-                scoreEl.textContent = `Score final : ${score}`;
-                nextBtn.classList.add('hidden');
-
-                const restartBtn = document.createElement('button');
-                restartBtn.type = 'button';
-                restartBtn.className = 'primary-btn quiz-next';
-                restartBtn.textContent = 'Recommencer';
-                restartBtn.addEventListener('click', () => {
-                    currentIndex = 0;
-                    score = 0;
-                    renderQuestion();
-                    restartBtn.remove();
-                });
-
-                nextBtn.insertAdjacentElement('afterend', restartBtn);
-            }
-        });
-
-        renderQuestion();
-    </script>
 </body>
 </html>
