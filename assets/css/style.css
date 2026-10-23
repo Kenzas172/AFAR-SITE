@@ -11,7 +11,7 @@
     --line: rgba(122, 31, 42, 0.14);
     --shadow-soft: 0 18px 34px rgba(44, 44, 44, 0.08);
     --shadow-strong: 0 24px 42px rgba(84, 23, 31, 0.12);
-    --font-main: 'Inter', sans-serif;
+    --font-main: Arial, Helvetica, sans-serif;
 }
 
 /* RESET */
@@ -45,7 +45,7 @@ body {
 .logo {
     font-size: 2rem;
     font-weight: 900;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-main);
     color: var(--bordeaux);
     text-decoration: none;
     letter-spacing: 2px;
@@ -66,7 +66,7 @@ body {
     text-decoration: none;
     color: var(--bordeaux);
     font-weight: 900;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-main);
     transition: color 0.3s;
 }
 
@@ -182,7 +182,7 @@ body {
     position: relative;
     display: inline-block;
     margin: 0 auto 1.4rem;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-main);
     font-size: clamp(2.1rem, 3.5vw, 3.2rem);
     font-weight: 900;
     letter-spacing: 2px;
@@ -458,7 +458,7 @@ body {
     text-align: center;
     color: var(--white);
     font-weight: 900;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-main);
     text-shadow: 0 2px 18px rgba(0,0,0,0.12);
 }
 
@@ -1154,6 +1154,8 @@ body {
 
 .alphabet-badge,
 .mini-tag {
+    position: relative;
+    z-index: 1;
     display: inline-block;
     background: rgba(255, 255, 255, 0.14);
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -1178,6 +1180,7 @@ body {
     display: block;
     font-size: 0.5em;
     opacity: 0.9;
+    color: rgba(255, 255, 255, 0.88);
 }
 
 .alphabet-hero p {
@@ -2072,7 +2075,7 @@ body {
 .section-title {
     position: relative;
     display: inline-block;
-    font-family: Arial, sans-serif;
+    font-family: var(--font-main);
     font-weight: 800;
     color: var(--bordeaux);
     font-size: clamp(1.6rem, 2.3vw, 2.3rem);
@@ -2534,7 +2537,7 @@ body {
     right: 2rem;
 
     color: rgba(122, 31, 42, 0.065);
-    font-family: Georgia, serif;
+    font-family: var(--font-main);
     font-size: clamp(8rem, 15vw, 13rem);
     line-height: 1;
 
@@ -2597,7 +2600,7 @@ body {
 
     color: var(--bordeaux);
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: var(--font-main);
     font-size: clamp(1.65rem, 3vw, 2.2rem);
     font-weight: 700;
     font-style: italic;
@@ -2856,7 +2859,7 @@ body {
     padding: 16px 20px 16px 52px;
     box-sizing: border-box;
 
-    font-family: inherit;
+    font-family: var(--font-main);
     font-size: 15px;
     color: #382522;
     letter-spacing: 0.2px;
@@ -3123,14 +3126,14 @@ color: #521818;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
     overflow: hidden;
-    font-family: inherit;
-    font-size: inherit;
+    font-family: var(--font-main);
+    font-size: var(--font-size);
 }
 
 .language-reminder,
 .language-reminder * {
     box-sizing: border-box;
-    font-family: inherit;
+    font-family: var(--font-main);
 }
 
 .language-reminder__header {
@@ -3361,7 +3364,7 @@ color: #521818;
 }
 
 .territoire-carousel h3 {
-    font-family: 'Anton', sans-serif;
+    font-family: var(--font-main);
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 400;
     color: var(--bordeaux);
@@ -3632,7 +3635,7 @@ body.lightbox-open {
     width: min(100% - 32px, 1100px);
     margin: 20px auto;
     color: #521818;
-    font-family: inherit;
+    font-family: var(--font-main);
 }
 
 .language-help__button {
@@ -3706,4 +3709,839 @@ body.lightbox-open {
     .language-help__content {
         padding: 16px;
     }
+}
+
+/* =========================================
+   PAGE MADQA — DROIT COUTUMIER AFAR
+   Fond beige, texte éditorial et image intégrée
+   ========================================= */
+
+.madqa-presentation,
+.madqa-ressources {
+    width: min(100%, 1000px);
+    margin-inline: auto;
+    padding-inline: 24px;
+    color: var(--text-dark);
+    font-family: var(--font-main);
+    line-height: 1.8;
+}
+
+.madqa-presentation *,
+.madqa-ressources * {
+    box-sizing: border-box;
+}
+
+.madqa-presentation {
+    padding-top: 40px;
+    padding-bottom: 25px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-entete {
+    margin-bottom: 40px;
+    padding: 30px 20px 35px;
+    text-align: center;
+    background: transparent;
+    border: 0;
+    border-bottom: 3px solid #420606;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-surtitre {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #80633c;
+    font-family: var(--font-main);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.madqa-entete h1 {
+    margin: 0;
+    color: var(--bordeaux);
+    font-family: var(--font-main);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    text-shadow: none;
+}
+
+.madqa-sous-titre {
+    margin: 20px 0 0;
+    color: #80633c;
+    font-family: var(--font-main);
+    font-size: 1.08rem;
+    font-style: italic;
+    line-height: 1.7;
+}
+
+.madqa-filet {
+    display: none;
+}
+
+.madqa-contenu {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.95fr);
+    align-items: center;
+    gap: 30px;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-texte {
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-texte p,
+.madqa-ressources p {
+    margin: 0 0 16px;
+    padding: 0;
+    color: var(--text-dark);
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.8;
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-texte strong,
+.madqa-ressources strong {
+    color: var(--bordeaux-deep);
+    font-weight: 700;
+}
+
+.madqa-illustration {
+    width: 100%;
+    max-width: 500px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-image-cadre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.madqa-illustration img {
+    display: block;
+    width: 100%;
+    max-height: none;
+    height: auto;
+    object-fit: contain;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: none;
+    background: transparent;
+    mix-blend-mode: multiply;
+    cursor: zoom-in;
+    transition: transform 0.25s ease;
+}
+
+.madqa-illustration img:hover {
+    transform: scale(1.015);
+}
+
+.madqa-illustration figcaption {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 10px;
+    color: #665e56;
+    font-family: var(--font-main);
+    font-size: 0.84rem;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.madqa-legende-numero {
+    color: var(--bordeaux);
+    font-weight: 800;
+}
+
+.madqa-illustration figcaption strong {
+    display: block;
+    color: var(--bordeaux);
+    font-weight: 700;
+}
+
+.madqa-illustration figcaption small {
+    display: block;
+    margin-top: 3px;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+}
+
+.madqa-ressources {
+    margin-top: 40px;
+    padding-top: 30px;
+    padding-bottom: 45px;
+    background: transparent;
+    border: 0;
+    border-top: 1px solid #d9cbb8;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-intro {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-ressources h2 {
+    margin: 12px 0 16px;
+    color: var(--bordeaux);
+    font-family: var(--font-main);
+    font-size: clamp(1.6rem, 2.5vw, 2.1rem);
+    font-weight: 750;
+    line-height: 1.3;
+    text-shadow: none;
+}
+
+.madqa-ressources h2:not(:first-child) {
+    margin-top: 32px;
+}
+
+.madqa-ressources h3 {
+    margin: 22px 0 12px;
+    color: var(--bordeaux-deep);
+    font-family: var(--font-main);
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+.madqa-separateur {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+    background: transparent;
+    border: 0;
+}
+
+.madqa-separateur > span:first-child,
+.madqa-separateur > span:last-child {
+    height: 1px;
+    flex: 1;
+    background: #d9cbb8;
+}
+
+.madqa-ornement {
+    color: #80633c;
+}
+
+.madqa-livre,
+.madqa-document {
+    display: grid;
+    grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+    align-items: start;
+    gap: 24px;
+    margin: 28px 0 34px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-livre-image {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+}
+
+.madqa-livre-image img {
+    display: block;
+    width: 100%;
+    max-height: 300px;
+    height: auto;
+    object-fit: contain;
+    object-position: top center;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: none;
+}
+
+.madqa-livre-contenu,
+.madqa-document-texte {
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.madqa-etiquette {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #80633c;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+}
+
+.madqa-auteur {
+    color: var(--text-muted) !important;
+}
+
+.madqa-liens {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin-top: 12px;
+}
+
+.madqa-ressources a:not(.madqa-bouton) {
+    color: var(--bordeaux);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+}
+
+.madqa-ressources a:not(.madqa-bouton):hover {
+    color: #a45a35;
+}
+
+.madqa-bouton {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 18px;
+    color: var(--white) !important;
+    background: var(--bordeaux);
+    border: 1px solid var(--bordeaux);
+    border-radius: 6px;
+    font-family: var(--font-main);
+    font-weight: 700;
+    text-decoration: none !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.madqa-bouton:hover {
+    color: var(--bordeaux) !important;
+    background: transparent;
+}
+
+/* Fenêtre d'agrandissement de l'illustration */
+.madqa-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 55px 20px 20px;
+    background: rgba(20, 15, 15, 0.92);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.madqa-lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.madqa-lightbox img {
+    display: block;
+    max-width: 95%;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 4px;
+    background: var(--beige);
+    cursor: default;
+}
+
+.madqa-lightbox-close {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    font-family: var(--font-main);
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.madqa-lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+body.madqa-lightbox-open {
+    overflow: hidden;
+}
+
+@media (max-width: 760px) {
+    .madqa-presentation,
+    .madqa-ressources {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .madqa-entete {
+        padding: 26px 12px 30px;
+        margin-bottom: 30px;
+    }
+
+    .madqa-contenu {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .madqa-illustration {
+        max-width: 600px;
+    }
+
+    .madqa-livre,
+    .madqa-document {
+        grid-template-columns: minmax(0, 180px) minmax(0, 1fr);
+        gap: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .madqa-presentation,
+    .madqa-ressources {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .madqa-presentation {
+        padding-top: 24px;
+    }
+
+    .madqa-entete {
+        padding: 24px 8px;
+    }
+
+    .madqa-entete h1 {
+        font-size: 2.2rem;
+    }
+
+    .madqa-sous-titre {
+        margin-top: 16px;
+        font-size: 1rem;
+    }
+
+    .madqa-texte p,
+    .madqa-ressources p {
+        font-size: 0.96rem;
+    }
+
+    .madqa-ressources h2 {
+        font-size: 1.4rem;
+    }
+
+    .madqa-livre,
+    .madqa-document {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .madqa-livre-image {
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .madqa-lightbox {
+        padding: 55px 8px 12px;
+    }
+
+    .madqa-lightbox img {
+        max-width: 100%;
+        max-height: 85vh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .madqa-illustration img,
+    .madqa-lightbox,
+    .madqa-ressources a,
+    .madqa-bouton {
+        transition: none;
+    }
+}
+
+
+/* =========================================
+   HARMONISATION GÉNÉRALE — RÉFÉRENCE : LANGUE
+   Police, titres, texte, couleurs et espacements
+   ========================================= */
+
+:root {
+    --font-main: Arial, Helvetica, sans-serif;
+    --beige: #f7f1e8;
+    --beige-soft: #fdf8f3;
+    --bordeaux: #7a1f2a;
+    --bordeaux-deep: #55131d;
+    --text-dark: #2d1f1f;
+    --text-muted: #5f4d4d;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-main);
+}
+
+body {
+    background-color: var(--beige);
+    color: var(--text-dark);
+    line-height: 1.7;
+}
+
+/* Navigation identique partout */
+.navbar,
+.logo,
+.nav-links a,
+.dropdown-menu a,
+.burger {
+    font-family: var(--font-main);
+}
+
+/* Titres : une seule famille de police et une hiérarchie stable */
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6,
+.territoire-afar h1,
+.territoire-afar h2,
+.territoire-afar h3,
+.proverb-afar,
+.proverb-fr,
+.afar-cycle h2,
+.section-title,
+.territoire-carousel h3 {
+    font-family: var(--font-main);
+    text-shadow: none;
+    text-transform: none;
+}
+
+.page-content h1,
+.page-content .translator-card h1,
+.page-content .langue-intro h1,
+.alphabet-hero h1,
+.madqa-entete h1 {
+    font-size: clamp(2.15rem, 4vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.page-content h2,
+.territoire-afar h2,
+.madqa-ressources h2 {
+    font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+.page-content h3,
+.territoire-afar h3,
+.madqa-ressources h3 {
+    font-size: clamp(1.12rem, 1.9vw, 1.4rem);
+    font-weight: 700;
+    line-height: 1.45;
+}
+
+/* Le bandeau des pages Langue et Alphabet conserve son fond bordeaux
+   et ses titres blancs ; seule la typo est harmonisée. */
+.page-content .langue-intro h1,
+.page-content .alphabet-hero h1 {
+    color: var(--white);
+    font-family: var(--font-main);
+    text-shadow: none;
+}
+
+.page-content .langue-intro h2,
+.page-content .alphabet-hero h2 {
+    color: rgba(255, 255, 255, 0.92);
+    font-family: var(--font-main);
+    text-shadow: none;
+}
+
+/* Texte courant uniforme */
+.page-content p,
+.page-content li,
+.page-content label,
+.page-content td,
+.page-content th,
+.territoire-afar p,
+.territoire-afar li,
+.madqa-texte p,
+.madqa-ressources p {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.page-content p {
+    color: var(--text-dark);
+}
+
+/* Même palette sur les liens et les sous-titres */
+.page-content a:not(.primary-btn):not(.secondary-btn):not(.impact-button):not(.madqa-bouton),
+.territoire-afar a,
+.madqa-ressources a:not(.madqa-bouton) {
+    color: var(--bordeaux);
+    text-underline-offset: 3px;
+}
+
+.page-content a:not(.primary-btn):not(.secondary-btn):not(.impact-button):not(.madqa-bouton):hover,
+.territoire-afar a:hover,
+.madqa-ressources a:not(.madqa-bouton):hover {
+    color: #a45a35;
+}
+
+/* Blocs de contenu dans le style des sous-pages Langue.
+   Les pages Territoire et Madqa gardent volontairement leur présentation
+   éditoriale sans cartes autour de leurs paragraphes. */
+.page-content .langue-section,
+.page-content .alphabet-section,
+.page-content .accord-section,
+.page-content .translator-card,
+.page-content .verbe-search-card,
+.page-content .pronoms-section,
+.page-content .conjugaison-card {
+    border-color: var(--line);
+    border-radius: 22px;
+}
+
+.page-content .langue-section h2,
+.page-content .alphabet-section h2,
+.page-content .accord-section h2,
+.page-content .conjugaison-section h2 {
+    color: var(--bordeaux);
+}
+
+/* Uniformisation des cartes secondaires sans changer leurs grilles */
+.page-content .langue-card,
+.page-content .info-card,
+.page-content .pronom-block,
+.page-content .accord-rule,
+.page-content .conjugaison-card,
+.page-content .verbe-results li,
+.page-content .vocab-card,
+.page-content .proverb-card {
+    border-color: var(--line);
+}
+
+/* Le proverbe afar adopte aussi la police commune */
+.proverb-afar {
+    color: var(--bordeaux);
+    font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.65;
+}
+
+.proverb-fr {
+    color: var(--text-dark);
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+/* Territoire : même famille de police et même bordeaux,
+   sans retirer son format éditorial sur le fond beige. */
+.territoire-afar {
+    font-family: var(--font-main);
+    color: var(--text-dark);
+}
+
+.territoire-header h1 {
+    color: var(--bordeaux);
+    font-family: var(--font-main);
+    font-size: clamp(2.15rem, 4vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-shadow: none;
+}
+
+.territoire-afar h2,
+.territoire-afar h3 {
+    color: var(--bordeaux);
+    font-family: var(--font-main);
+}
+
+.territoire-sous-titre {
+    color: #80633c;
+    font-family: var(--font-main);
+}
+
+/* Boutons et contrôles */
+.primary-btn,
+.secondary-btn,
+.impact-button,
+.clear-search-btn,
+.quiz-btn,
+.madqa-bouton {
+    font-family: var(--font-main);
+}
+
+/* Le rappel linguistique garde son fonctionnement mais partage la palette */
+.language-reminder,
+.language-reminder *,
+.language-help,
+.language-help * {
+    font-family: var(--font-main);
+}
+
+/* Mise en page mobile commune */
+@media (max-width: 768px) {
+    .page-content {
+        padding: 2.2rem 1rem;
+    }
+
+    .page-content p,
+    .page-content li,
+    .page-content td,
+    .page-content th {
+        font-size: 0.98rem;
+        line-height: 1.75;
+    }
+
+    .page-content h1,
+    .page-content .translator-card h1,
+    .page-content .langue-intro h1,
+    .alphabet-hero h1,
+    .madqa-entete h1 {
+        font-size: clamp(2rem, 8vw, 2.8rem);
+    }
+
+    .page-content h2,
+    .territoire-afar h2,
+    .madqa-ressources h2 {
+        font-size: clamp(1.4rem, 6vw, 1.9rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+/* =====================================
+   TYPOGRAPHIE COMMUNE — AFAR AF
+===================================== */
+
+body {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-main);
+}
+
+.page-content p,
+.page-content li,
+.page-content td,
+.page-content th,
+.page-content label {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+    font-family: var(--font-main);
+    color: var(--bordeaux);
+    font-style: normal;
+    text-shadow: none;
+    text-transform: none;
+}
+
+/* =====================================
+   TYPOGRAPHIE COMMUNE — AFAR AF
+===================================== */
+
+body {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: var(--font-main);
+}
+
+.page-content p,
+.page-content li,
+.page-content td,
+.page-content th,
+.page-content label {
+    font-family: var(--font-main);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-dark);
+}
+
+.page-content h1,
+.page-content h2,
+.page-content h3,
+.page-content h4,
+.page-content h5,
+.page-content h6 {
+    font-family: var(--font-main);
+    color: var(--bordeaux);
+    font-style: normal;
+    text-shadow: none;
+    text-transform: none;
 }
